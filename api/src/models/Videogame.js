@@ -11,24 +11,73 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        customValidator(value) {
+          if (!/[\x20\x2D0-9A-Z\x5Fa-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\:"()']/.test(value)) {
+            throw new Error("Name incorrect");
+          } 
+        },
+        notNull: {
+          msg: 'Please enter a name'
+        }
+      }
     },
     image: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        customValidator(value) {
+          if (typeof value !== "string") {
+            throw new Error("Image error");
+          } 
+        },
+      }
     },
     description: {
       type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
+        customValidator(value) {
+          if (value.length >= 255) {
+            throw new Error("Description too long (Max 255 characters)");
+          } else if ((!/[\x20\x2D0-9A-Z\x5Fa-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\:"()']/.test(value))) {
+            throw new Error("Description incorrect");
+          }
+        },
+        notNull: {
+          msg: 'Please enter a description'
+        }
+      }
     },
     released: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        customValidator(value) {
+          if (typeof value !== "string") {
+            throw new Error("Date error");
+          } 
+        },
+      }
+      
     },
     rating: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      validate: {
+        customValidator(value) {
+          if (typeof value !== "number") {
+            throw new Error("Rating error");
+          } 
+        },
+      }
     },
     platforms: {
       type: DataTypes.ARRAY(DataTypes.JSON),
-      defaultValue: [],
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Please enter a platform'
+        }
+      }
     }
   },
     {

@@ -2,13 +2,20 @@ const { Videogame, Genre } = require("../db");
 
 const createVideogame = async (req, res, next) => {
 
-    const { name, description, realease, rating, platforms, genres } = req.body;
+    const { name, description, released, rating, platforms, genre } = req.body;
 
     try {
 
-        const newGame = await Videogame.create(req.body);
+        const newGame = await Videogame.create({
+            name,
+            description,
+            released,
+            rating,
+            platforms,
+            genre
+        });
 
-        await newGame.addGenre(genres);
+        await newGame.addGenre(genre);
         
         return res.status(201).json(newGame);  
 
@@ -47,3 +54,12 @@ module.exports = {
     getVideogameById,
     createVideogame
 }
+
+// {
+//     "name": "The zorr",
+//     "description": "a very long game",
+//     "released": "23-10-2015",
+//     "rating": 5,
+//     "platforms": ["XBOX", "Play Station 5"],
+//     "genres": ["Action"]
+// }

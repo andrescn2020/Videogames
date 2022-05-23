@@ -80,6 +80,7 @@ const loadApiGames = async function () {
 
           name: e.name,
           image: e.background_image,
+          description: e.description === undefined ? e.description = "Not specified" : e.description,
           released: e.released,
           rating: e.rating,
           platforms: e.platforms.map((platform) => platform.platform.name)
