@@ -1,11 +1,29 @@
+import { Route, Switch } from "react-router-dom";
+import NotFound from './components/NotFound/NotFound';
+import LandingPage from './components/LandingPage/LandingPage';
+import Home from "./components/Home/Home";
 import './App.css';
 
-function App() {
+const App = () => {
+
   return (
-    <div className="App">
-      <h1>Henry Videogames</h1>
+    <div>
+
+      <h1>
+
+        <Switch>
+
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/api/videogames/" exact component={Home} />
+          <Route path="*" exact={true} component={NotFound} />
+
+        </Switch>
+
+      </h1>
+
     </div>
   );
+
 }
 
 export default App;
