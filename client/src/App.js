@@ -3,6 +3,7 @@ import NotFound from './components/NotFound/NotFound';
 import LandingPage from './components/LandingPage/LandingPage';
 import Home from "./components/Home/Home";
 import './App.css';
+import Form from "./components/Form/Form";
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
 
           <Route path="/" exact component={LandingPage} />
           <Route path="/api/videogames/" exact component={Home} />
+          <Route path="/api/videogame/" exact component={Form} />
           <Route path="*" exact={true} component={NotFound} />
 
         </Switch>

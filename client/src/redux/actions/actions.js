@@ -5,6 +5,11 @@ export const GET_VIDEOGAME_BY_NAME = 'GET_VIDEOGAME_BY_NAME';
 export const GET_VIDEOGAME_DETAIL = 'GET_ALL_VIDEOGAME_DETAIL';
 export const CREATE_VIDEOGAME = "CREATE_VIDEOGAME";
 export const GET_ALL_GENRES = 'GET_ALL_GENRES';
+export const SORT_ASC = "SORT_ASC";
+export const SORT_DESC = "SORT_DESC";
+export const SORT_MORE_RATING = "SORT_MORE_RATING";
+export const SORT_LESS_RATING = "SORT_LESS_RATING";
+export const SORT_BY_GENRE = "SORT_BY_GENRE";
 
 export const getAllVideogames = () => {
     return async (dispatch) => {
@@ -29,3 +34,50 @@ export const getAllGenres = () => {
         }
     };
 };
+
+export const sortByAsc = (payload) => {
+
+    return (dispatch) => {
+        
+        dispatch({ type: SORT_ASC, payload: payload })
+
+    };
+};
+
+export const sortByDesc = (payload) => {
+
+    return (dispatch) => {
+        
+        dispatch({ type: SORT_DESC, payload: payload })
+
+    };
+};
+
+export const sortByMoreRating = (payload) => {
+
+    return (dispatch) => {
+        
+        dispatch({ type: SORT_MORE_RATING, payload: payload })
+
+    };
+};
+
+
+export const sortByLessRating = (payload) => {
+
+    return (dispatch) => {
+        
+        dispatch({ type: SORT_LESS_RATING, payload: payload })
+
+    };
+};
+
+export const sortByGenre = (payload) => {
+
+    return (dispatch) => {
+        
+        dispatch({ type: SORT_BY_GENRE, payload: payload })
+
+    };
+};
+
