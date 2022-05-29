@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb } from "../../redux/actions/actions";
+import { cleanUp, getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb } from "../../redux/actions/actions";
 import Videogame from "../Videogame/Videogame";
 import "./Home.css";
 import { Link } from 'react-router-dom';
@@ -22,12 +22,20 @@ const Home = () => {
 
   useEffect(() => {
 
-    dispatch(getAllVideogames())
-    dispatch(getAllGenres())
+    dispatch(getAllVideogames());
+    dispatch(getAllGenres());
+
+    return () => {
+
+      dispatch(cleanUp());
+      
+    }
 
   }, [dispatch])
 
   /////////// VARIABLES ///////////////////////////////////////////
+
+  let size = Math.ceil((videogames.length) / videogamesPerPage);
 
   let buttons = [];
 
@@ -107,7 +115,7 @@ const Home = () => {
 
   /////////// PAGINATION ///////////////////////////////////////////
 
-  for (let i = 1; i <= 15; i++) {
+  for (let i = 1; i <= size; i++) {
 
     buttons.push(i);
 

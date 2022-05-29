@@ -11,7 +11,8 @@ import {
     SORT_LESS_RATING,
     SORT_BY_GENRE,
     RESET_FILTER,
-    SORT_BY_DB
+    SORT_BY_DB,
+    CLEAN_UP
 
 } from "../actions/actions";
 
@@ -34,7 +35,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 videogames: payload
 
             };
+
         case RESET_FILTER:
+
+            return {
+
+                ...state,
+                videogames: payload
+
+            };
+
+        case CLEAN_UP:
 
             return {
 

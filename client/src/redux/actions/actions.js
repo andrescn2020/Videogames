@@ -12,6 +12,8 @@ export const SORT_LESS_RATING = "SORT_LESS_RATING";
 export const SORT_BY_GENRE = "SORT_BY_GENRE";
 export const RESET_FILTER = 'RESET_FILTER';
 export const SORT_BY_DB = "SORT_BY_DB";
+export const CLEAN_UP = "CLEAN_UP";
+
 
 export const getAllVideogames = () => {
 
@@ -111,12 +113,31 @@ export const resetFilter = () => {
 
 };
 
-export const sortByDb = (payload) => {
+export const sortByDb = () => {
+
+    return async (dispatch) => {
+
+        try {
+
+            return axios.get(`http://localhost:3001/api/videogames/`)
+                .then(res => dispatch({ type: SORT_BY_DB, payload: res.data }))
+
+        } catch (err) {
+
+            console.error(err);
+
+        }
+    };
+
+};
+
+export const cleanUp = () => {
 
     return (dispatch) => {
         
-        dispatch({ type: SORT_BY_DB, payload: payload });
+        dispatch({ type: CLEAN_UP, payload: [] });
 
     };
-};
+
+}
 
