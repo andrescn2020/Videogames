@@ -10,27 +10,39 @@ export const SORT_DESC = "SORT_DESC";
 export const SORT_MORE_RATING = "SORT_MORE_RATING";
 export const SORT_LESS_RATING = "SORT_LESS_RATING";
 export const SORT_BY_GENRE = "SORT_BY_GENRE";
+export const RESET_FILTER = 'RESET_FILTER';
+export const SORT_BY_DB = "SORT_BY_DB";
 
 export const getAllVideogames = () => {
+
     return async (dispatch) => {
+
         try {
+
             return axios.get(`http://localhost:3001/api/videogames/`)
                 .then(res => dispatch({ type: GET_ALL_VIDEOGAMES, payload: res.data }))
 
         } catch (err) {
-            console.error(err)
+
+            console.error(err);
+
         }
     };
 };
 
 export const getAllGenres = () => {
+
     return async function (dispatch) {
+
         try {
+
             return axios.get('http://localhost:3001/api/genres/')
                 .then(res => dispatch({ type: GET_ALL_GENRES, payload: res.data }))
 
         } catch (err) {
+
             console.error(err);
+
         }
     };
 };
@@ -39,7 +51,7 @@ export const sortByAsc = (payload) => {
 
     return (dispatch) => {
         
-        dispatch({ type: SORT_ASC, payload: payload })
+        dispatch({ type: SORT_ASC, payload: payload });
 
     };
 };
@@ -48,7 +60,7 @@ export const sortByDesc = (payload) => {
 
     return (dispatch) => {
         
-        dispatch({ type: SORT_DESC, payload: payload })
+        dispatch({ type: SORT_DESC, payload: payload });
 
     };
 };
@@ -57,7 +69,7 @@ export const sortByMoreRating = (payload) => {
 
     return (dispatch) => {
         
-        dispatch({ type: SORT_MORE_RATING, payload: payload })
+        dispatch({ type: SORT_MORE_RATING, payload: payload });
 
     };
 };
@@ -67,7 +79,7 @@ export const sortByLessRating = (payload) => {
 
     return (dispatch) => {
         
-        dispatch({ type: SORT_LESS_RATING, payload: payload })
+        dispatch({ type: SORT_LESS_RATING, payload: payload });
 
     };
 };
@@ -76,7 +88,34 @@ export const sortByGenre = (payload) => {
 
     return (dispatch) => {
         
-        dispatch({ type: SORT_BY_GENRE, payload: payload })
+        dispatch({ type: SORT_BY_GENRE, payload: payload });
+
+    };
+};
+
+export const resetFilter = () => {
+
+    return async (dispatch) => {
+
+        try {
+
+            return axios.get(`http://localhost:3001/api/videogames/`)
+                .then(res => dispatch({ type: RESET_FILTER, payload: res.data }))
+
+        } catch (err) {
+
+            console.error(err);
+
+        }
+    };
+
+};
+
+export const sortByDb = (payload) => {
+
+    return (dispatch) => {
+        
+        dispatch({ type: SORT_BY_DB, payload: payload });
 
     };
 };

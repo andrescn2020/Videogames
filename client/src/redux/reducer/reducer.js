@@ -9,7 +9,9 @@ import {
     SORT_DESC,
     SORT_MORE_RATING,
     SORT_LESS_RATING,
-    SORT_BY_GENRE
+    SORT_BY_GENRE,
+    RESET_FILTER,
+    SORT_BY_DB
 
 } from "../actions/actions";
 
@@ -27,40 +29,53 @@ const rootReducer = (state = initialState, { type, payload }) => {
         case GET_ALL_VIDEOGAMES:
 
             return {
+
                 ...state,
-                videogames: payload,
+                videogames: payload
+
+            };
+        case RESET_FILTER:
+
+            return {
+
+                ...state,
+                videogames: payload
 
             };
 
         case GET_ALL_GENRES:
 
             return {
+
                 ...state,
-                genres: payload,
+                genres: payload
 
             };
 
         case GET_VIDEOGAME_BY_NAME:
 
             return {
+
                 ...state,
-                videogames: payload,
+                videogames: payload
 
             };
 
         case GET_VIDEOGAME_DETAIL:
 
             return {
+
                 ...state,
-                videogames: payload,
+                videogames: payload
 
             };
 
         case CREATE_VIDEOGAME:
 
             return {
+
                 ...state,
-                videogames: payload,
+                videogames: payload
 
             };
 
@@ -122,14 +137,41 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
         case SORT_BY_GENRE:
 
-            let sortByGenre = state.genres;
+            let sortByGenre = state.videogames;
 
-            sortByGenre = sortByGenre.filter((genre) => genre.name === payload);
+            let filteredVideogamesByGenre = [];
+
+            let pushElem = [];
+
+            for (let i = 0; i < sortByGenre.length; i++) {
+
+                pushElem = sortByGenre[i].genres.filter(genre => genre.name === payload)
+
+                if (pushElem.length > 0) {
+
+                    filteredVideogamesByGenre.push(sortByGenre[i]);
+
+                }
+
+            }
 
             return {
 
                 ...state,
-                videogames: sortByGenre[0].videogames
+                videogames: filteredVideogamesByGenre
+
+            };
+
+        case SORT_BY_DB:
+
+            let databaseVideogames = state.videogames;
+
+            databaseVideogames = databaseVideogames.filter(videogame => videogame.description !== "Not specified")
+
+            return {
+
+                ...state,
+                videogames: databaseVideogames
 
             };
 

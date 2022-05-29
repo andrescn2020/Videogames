@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating } from "../../redux/actions/actions";
+import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb } from "../../redux/actions/actions";
 import Videogame from "../Videogame/Videogame";
 import "./Home.css";
 import { Link } from 'react-router-dom';
@@ -79,6 +79,28 @@ const Home = () => {
 
     dispatch(sortByGenre(e.target.value));
 
+    setCurrentPage(1);
+
+    return videogames;
+
+  }
+
+  const handleFilter = () => {
+
+    dispatch(resetFilter());
+
+    setCurrentPage(1);
+
+    return videogames;
+
+  }
+
+  const handleDatabase = () => {
+
+    dispatch(sortByDb());
+
+    setCurrentPage(1);
+
     return videogames;
 
   }
@@ -124,21 +146,31 @@ const Home = () => {
       <select name="filter" onChange={handleSortByGenre}>
 
         {genres.map((genre) => (
-          <option value={genre.name} key={genre.id}>{genre.name}</option>
+
+          <option value={genre.name} key={genre.name}>{genre.name}</option>
+
         ))}
 
       </select>
 
+      <button onClick={handleFilter}>Clear Filter</button>
+
+      <button onClick={handleDatabase}>Videogames created by form</button>
+
       <div className="buttonsContainer">
 
         {buttons.map((number) => (
+
           <button className="buttons" onClick={() => paginate(number)} key={number}>{number}</button>
+        
         ))}
 
       </div>
 
       <Link to = "/api/videogame/">
+        
         <button>Create Videogame</button>
+
       </Link>
 
       <div className="videogamesContainer">
