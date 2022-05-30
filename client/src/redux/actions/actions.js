@@ -21,8 +21,28 @@ export const getAllVideogames = () => {
 
         try {
 
-            return axios.get(`http://localhost:3001/api/videogames/`)
-                .then(res => dispatch({ type: GET_ALL_VIDEOGAMES, payload: res.data }))
+            return axios.get(`https://api.rawg.io/api/games?key=b3b60d6dd3b44a0f9da23679368988e0`)
+                .then(res => dispatch({ type: GET_ALL_VIDEOGAMES, payload: res.data.results }))
+                
+
+        } catch (err) {
+
+            console.error(err);
+
+        }
+    };
+};
+
+export const getVideogameById = (id) => {
+
+    return async (dispatch) => {
+
+        try {
+
+            console.log(id);
+
+            return axios.get(`https://api.rawg.io/api/games/${id}?key=b3b60d6dd3b44a0f9da23679368988e0`)
+                .then(res => dispatch({ type: GET_VIDEOGAME_DETAIL, payload: res.data}))
 
         } catch (err) {
 
@@ -101,8 +121,8 @@ export const resetFilter = () => {
 
         try {
 
-            return axios.get(`http://localhost:3001/api/videogames/`)
-                .then(res => dispatch({ type: RESET_FILTER, payload: res.data }))
+            return axios.get(`https://api.rawg.io/api/games?key=b3b60d6dd3b44a0f9da23679368988e0`)
+                .then(res => dispatch({ type: RESET_FILTER, payload: res.data.results }))
 
         } catch (err) {
 
@@ -135,7 +155,7 @@ export const cleanUp = () => {
 
     return (dispatch) => {
         
-        dispatch({ type: CLEAN_UP, payload: [] });
+        dispatch({ type: CLEAN_UP, payload: {} });
 
     };
 

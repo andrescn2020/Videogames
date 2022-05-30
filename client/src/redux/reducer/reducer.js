@@ -19,6 +19,7 @@ import {
 const initialState = {
 
     videogames: [],
+    videogameDetail: {},
     genres: []
 
 };
@@ -36,6 +37,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             };
 
+        case GET_VIDEOGAME_DETAIL:
+
+        console.log(payload);
+
+            return {
+                
+
+                ...state,
+                videogameDetail: payload
+
+            };
+
         case RESET_FILTER:
 
             return {
@@ -50,7 +63,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
             return {
 
                 ...state,
-                videogames: payload
+                videogameDetail: payload
 
             };
 
@@ -64,15 +77,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
             };
 
         case GET_VIDEOGAME_BY_NAME:
-
-            return {
-
-                ...state,
-                videogames: payload
-
-            };
-
-        case GET_VIDEOGAME_DETAIL:
 
             return {
 

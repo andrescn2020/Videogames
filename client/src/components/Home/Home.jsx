@@ -25,11 +25,11 @@ const Home = () => {
     dispatch(getAllVideogames());
     dispatch(getAllGenres());
 
-    return () => {
+    // return () => {
 
-      dispatch(cleanUp());
+    //   dispatch(cleanUp());
       
-    }
+    // }
 
   }, [dispatch])
 
@@ -115,11 +115,33 @@ const Home = () => {
 
   /////////// PAGINATION ///////////////////////////////////////////
 
+
+
   for (let i = 1; i <= size; i++) {
 
     buttons.push(i);
 
   }
+
+    if(currentPage === 0){
+
+      setCurrentPage(1);
+
+    }  
+
+    if(size === 0) {
+
+      size = 1;
+      
+    }
+    
+    if (currentPage > size) {
+
+      let savePage = buttons.pop();
+
+      setCurrentPage(savePage);
+
+    }
 
   indexOfLastVideogame = currentPage * videogamesPerPage;
 
@@ -137,7 +159,7 @@ const Home = () => {
 
       <select name="filter" onChange={handleSortByAsc}>
 
-        <option value="SELECT">Alphanetic</option>
+        <option value="SELECT">Alphabetic</option>
         <option value="ASC">A-Z</option>
         <option value="DESC">Z-A</option>
 
@@ -167,11 +189,15 @@ const Home = () => {
 
       <div className="buttonsContainer">
 
+        <button onClick={() => setCurrentPage(currentPage - 1)}> Previous </button>
+
         {buttons.map((number) => (
 
           <button className="buttons" onClick={() => paginate(number)} key={number}>{number}</button>
         
         ))}
+
+        <button onClick={() => setCurrentPage(currentPage + 1)}> Next </button>
 
       </div>
 
@@ -183,14 +209,14 @@ const Home = () => {
 
       <div className="videogamesContainer">
 
-        {currentVideogames.length ? currentVideogames.map((videogame) => (
+        {currentVideogames && currentVideogames.map((videogame) => (
 
           <Videogame
             key={videogame.id}
             videogame={videogame}
           />
 
-        )) : <div className="spinner"></div>}
+        ))}
 
       </div>
 

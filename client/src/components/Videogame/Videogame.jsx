@@ -1,16 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import "./Videogame.css";
 
 const Videogame = (props) => {
 
   const { videogame } = props;
 
-  const { name, image, genres, rating } = videogame;
+  const { id, name, background_image, genres, rating } = videogame;
 
   return (
 
     <div className="videogameContainer">
-    <img className="videogameImage" src={image} alt={name} />
+
+    <Link to = {`/api/videogame/${id}`}>
+
+    <img className="videogameImage" src={background_image} alt={name} />
     <div className='videogameInfo'>
     <h1 className="videogameName">{name}</h1>
 
@@ -22,8 +26,10 @@ const Videogame = (props) => {
     </div>
 
     <p className='videogameRating'>{rating}</p>
-    
+
     </div>
+
+    </Link>
 
   </div>
 
