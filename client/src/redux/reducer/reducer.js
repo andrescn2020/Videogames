@@ -39,11 +39,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
         case GET_VIDEOGAME_DETAIL:
 
-        console.log(payload);
-
             return {
                 
-
                 ...state,
                 videogameDetail: payload
 

@@ -45,7 +45,7 @@ const VideogameDetail = () => {
 
       <div className="infoContainer">
 
-        {videogameDetail && (
+        {videogameDetail.length !== 0 ? (
 
           <>
 
@@ -69,7 +69,7 @@ const VideogameDetail = () => {
 
           </>
 
-        )}
+        ) : <span>no</span>}
 
       </div>
 

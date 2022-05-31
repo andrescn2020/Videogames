@@ -13,16 +13,15 @@ export const SORT_BY_GENRE = "SORT_BY_GENRE";
 export const RESET_FILTER = 'RESET_FILTER';
 export const SORT_BY_DB = "SORT_BY_DB";
 export const CLEAN_UP = "CLEAN_UP";
-
-
+ 
 export const getAllVideogames = () => {
 
     return async (dispatch) => {
 
         try {
 
-            return axios.get(`https://api.rawg.io/api/games?key=b3b60d6dd3b44a0f9da23679368988e0`)
-                .then(res => dispatch({ type: GET_ALL_VIDEOGAMES, payload: res.data.results }))
+            return axios.get(`http://localhost:3001/api/videogames/`)
+                .then(res => dispatch({ type: GET_ALL_VIDEOGAMES, payload: res.data }))
                 
 
         } catch (err) {
@@ -39,9 +38,7 @@ export const getVideogameById = (id) => {
 
         try {
 
-            console.log(id);
-
-            return axios.get(`https://api.rawg.io/api/games/${id}?key=b3b60d6dd3b44a0f9da23679368988e0`)
+            return axios.get(`http://localhost:3001/api/videogame/${id}`)
                 .then(res => dispatch({ type: GET_VIDEOGAME_DETAIL, payload: res.data}))
 
         } catch (err) {

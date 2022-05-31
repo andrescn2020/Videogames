@@ -19,6 +19,7 @@ const Form = () => {
     description: "",
     released: "",
     rating: 0,
+    background_image: "",
     platforms: [],
     genres: []
 
@@ -56,7 +57,7 @@ const Form = () => {
 
   let platformsAvaible = [];
 
-  videogames.map((videogame) => videogame.platforms.map((platform) => allPlatforms.add(platform)));
+  videogames.map((videogame) => videogame.platforms.map((platform) => allPlatforms.add(platform.platform.name)));
 
   for (const key of allPlatforms) {
 
@@ -76,8 +77,6 @@ const Form = () => {
 
         input.rating = parseInt(input.rating);
 
-        console.log(input.rating);
-
         await axios.post("http://localhost:3001/api/videogame/", input);
 
         alert('Videogame created successfully');
@@ -88,6 +87,7 @@ const Form = () => {
           description: "",
           released: "",
           rating: 0,
+          background_image: "",
           platforms: [],
           genres: []
 
@@ -194,6 +194,23 @@ const Form = () => {
   }
 
   ///////// HANDLE_CHANGE_PLATFORM ////////////////////////////////////////////////////////////////////
+const handleChangeImage = (e) => {
+
+  setInput((prevState) => {
+
+    const newState = {
+
+        ...prevState,
+        [e.target.name]: e.target.value
+
+    };
+
+    return newState;
+
+});
+
+}
+
 
   const handleChangePlatform = (e) => {
 
@@ -327,17 +344,17 @@ const Form = () => {
 
           <label>Platforms: </label>
 
-          <select name="platforms" value={``} onChange={handleChangePlatform}>
+          {/* <select name="platforms" value={``} onChange={handleChangePlatform}>
 
             <option value="Select">---------------</option>
 
-            {platformsAvaible.map((platform) => (
+            {platformsAvaible.map((platform, i) => (
 
               <option key={platform} value={platform}>{platform}</option>
 
             ))}
 
-          </select>
+          </select> */}
 
         </div>
 
@@ -356,6 +373,12 @@ const Form = () => {
             ))}
 
           </select>
+
+        </div>
+
+        <div>
+
+              <input type="file" name="background_image" onChange={handleChangeImage}/>Choose Image
 
         </div>
 
