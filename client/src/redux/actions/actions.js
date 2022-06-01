@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const GET_ALL_VIDEOGAMES = 'GET_ALL_VIDEOGAMES';
-export const GET_VIDEOGAME_BY_NAME = 'GET_VIDEOGAME_BY_NAME';
 export const GET_VIDEOGAME_DETAIL = 'GET_ALL_VIDEOGAME_DETAIL';
 export const CREATE_VIDEOGAME = "CREATE_VIDEOGAME";
 export const GET_ALL_GENRES = 'GET_ALL_GENRES';
@@ -13,6 +12,7 @@ export const SORT_BY_GENRE = "SORT_BY_GENRE";
 export const RESET_FILTER = 'RESET_FILTER';
 export const SORT_BY_DB = "SORT_BY_DB";
 export const CLEAN_UP = "CLEAN_UP";
+export const QUERY_SEARCH = "QUERY_SEARCH";
  
 export const getAllVideogames = () => {
 
@@ -164,4 +164,24 @@ export const cleanUp = () => {
     };
 
 }
+
+export const searchBarTerm = (term) => {
+
+    return async (dispatch) => {
+
+        try {
+
+            console.log(term);
+
+            return axios.get(`http://localhost:3001/api/videogames/?name=${term}`)
+                .then(res => dispatch({ type: QUERY_SEARCH, payload: res.data }))
+                
+
+        } catch (err) {
+
+            console.error(err);
+
+        }
+    };
+};
 

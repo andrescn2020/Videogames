@@ -1,7 +1,6 @@
 import {
 
     GET_ALL_VIDEOGAMES,
-    GET_VIDEOGAME_BY_NAME,
     GET_VIDEOGAME_DETAIL,
     CREATE_VIDEOGAME,
     GET_ALL_GENRES,
@@ -12,7 +11,8 @@ import {
     SORT_BY_GENRE,
     RESET_FILTER,
     SORT_BY_DB,
-    CLEAN_UP
+    CLEAN_UP,
+    QUERY_SEARCH
 
 } from "../actions/actions";
 
@@ -38,6 +38,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
             };
 
         case GET_VIDEOGAME_DETAIL:
+
+        payload.description = payload.description.split("<p>").join("");
+
+        payload.description = payload.description.split("</p>").join("");
+
+        payload.description = payload.description.split("<br />").join("");
+
+        payload.description = payload.description.split("\n").join("");
 
             return {
                 
@@ -73,7 +81,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             };
 
-        case GET_VIDEOGAME_BY_NAME:
+        case QUERY_SEARCH:
+
+        console.log(payload);
 
             return {
 
@@ -157,7 +167,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             for (let i = 0; i < sortByGenre.length; i++) {
 
-                pushElem = sortByGenre[i].genre.filter(genr => genr === payload)
+                pushElem = sortByGenre[i].genres.filter(genre => genre.name === payload)
 
                 if (pushElem.length > 0) {
 
@@ -178,7 +188,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             let databaseVideogames = state.videogames;
 
-            databaseVideogames = databaseVideogames.filter(videogame => typeof videogame.id === "string")
+            databaseVideogames = databaseVideogames.filter(videogame => videogame.description.includes("</p>") === false)
 
             return {
 

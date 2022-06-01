@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb } from "../../redux/actions/actions";
+import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb, searchBarTerm } from "../../redux/actions/actions";
 import Videogame from "../Videogame/Videogame";
 import "./Home.css";
 import { Link } from 'react-router-dom';
@@ -15,6 +15,8 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [videogamesPerPage] = useState(15);
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const dispatch = useDispatch();
 
@@ -107,9 +109,25 @@ const Home = () => {
 
   }
 
+  const handleSearchTerm = (e) => {
+
+    setSearchTerm(e.target.value);
+
+    return videogames;
+
+  }
+
+  const handleSearchBar = (e) => {
+
+    dispatch(searchBarTerm(searchTerm));
+
+    setCurrentPage(e.target = 1);
+
+    return videogames;
+
+  }
+
   /////////// PAGINATION ///////////////////////////////////////////
-
-
 
   for (let i = 1; i <= size; i++) {
 
@@ -117,25 +135,25 @@ const Home = () => {
 
   }
 
-    if(currentPage === 0){
+  if (currentPage === 0) {
 
-      setCurrentPage(1);
+    setCurrentPage(1);
 
-    }  
+  }
 
-    if(size === 0) {
+  if (size === 0) {
 
-      size = 1;
-      
-    }
-    
-    if (currentPage > size) {
+    size = 1;
 
-      let savePage = buttons.pop();
+  }
 
-      setCurrentPage(savePage);
+  if (currentPage > size) {
 
-    }
+    let savePage = buttons.pop();
+
+    setCurrentPage(savePage);
+
+  }
 
   indexOfLastVideogame = currentPage * videogamesPerPage;
 
@@ -146,6 +164,9 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   /////////// RENDER /////////////////////////////////////////////
+
+
+
 
   return (
 
@@ -181,6 +202,10 @@ const Home = () => {
 
       <button onClick={handleDatabase}>Videogames created by form</button>
 
+      <input name="searchInput" className="searchBar" type="text" placeholder="Search..." onChange={handleSearchTerm} />
+
+      <input type="submit" value="Search" onClick={handleSearchBar} />
+
       <div className="buttonsContainer">
 
         <button onClick={() => setCurrentPage(currentPage - 1)}> Previous </button>
@@ -188,15 +213,15 @@ const Home = () => {
         {buttons.map((number) => (
 
           <button className="buttons" onClick={() => paginate(number)} key={number}>{number}</button>
-        
+
         ))}
 
         <button onClick={() => setCurrentPage(currentPage + 1)}> Next </button>
 
       </div>
 
-      <Link to = "/api/videogame/">
-        
+      <Link to="/api/videogame/">
+
         <button>Create Videogame</button>
 
       </Link>

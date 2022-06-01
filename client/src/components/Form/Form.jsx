@@ -212,59 +212,59 @@ const handleChangeImage = (e) => {
 }
 
 
-  const handleChangePlatform = (e) => {
+  // const handleChangePlatform = (e) => {
 
-    if (e.target.value === "Select" || e.target.name === []) {
+  //   if (e.target.value === "Select" || e.target.name === []) {
 
-      setInput((prevState) => {
-
-
-          const newState = {
-
-              ...prevState,
-              [e.target.name]: [...input.platforms]
-
-          };
-
-          return newState;
-
-      });
-
-  } else if (input.platforms.includes(e.target.value)) {
-
-      setInput((prevState) => {
+  //     setInput((prevState) => {
 
 
-          const newState = {
+  //         const newState = {
 
-              ...prevState,
-              [e.target.name]: [...input.platforms]
+  //             ...prevState,
+  //             [e.target.name]: [...input.platforms]
 
-          };
+  //         };
 
-          return newState;
+  //         return newState;
 
-      });
+  //     });
+
+  // } else if (input.platforms.includes(e.target.value)) {
+
+  //     setInput((prevState) => {
 
 
-  } else {
+  //         const newState = {
 
-      setInput((prevState) => {
+  //             ...prevState,
+  //             [e.target.name]: [...input.platforms]
 
-          const newState = {
+  //         };
 
-              ...prevState,
-              [e.target.name]: [...input.platforms, e.target.value]
+  //         return newState;
 
-          };
+  //     });
 
-          return newState;
 
-      });
+  // } else {
 
-    }
+  //     setInput((prevState) => {
 
-  }
+  //         const newState = {
+
+  //             ...prevState,
+  //             [e.target.name]: [...input.platforms, e.target.value]
+
+  //         };
+
+  //         return newState;
+
+  //     });
+
+  //   }
+
+  // }
 
   ////////// RENDER ////////////////////////////////////////////////////////////////////
 

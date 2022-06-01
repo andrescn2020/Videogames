@@ -6,7 +6,7 @@ const Videogame = (props) => {
 
   const { videogame } = props;
 
-  const { id, name, image, genre, rating } = videogame;
+  const { id, name, image, genres, rating } = videogame;
 
   return (
 
@@ -18,9 +18,9 @@ const Videogame = (props) => {
     <div className='videogameInfo'>
     <h1 className="videogameName">{name}</h1>
 
-    <div className="videogameGenres">{genre.map((genre) => (
+    <div className="videogameGenres">{genres.map((genre) => (
 
-    <p key={genre}>{genre} </p>
+    <p key={genre.id}>{genre.name} </p>
 
     ))}
     </div>

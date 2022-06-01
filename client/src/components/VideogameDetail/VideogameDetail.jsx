@@ -13,10 +13,6 @@ const VideogameDetail = () => {
 
   const dispatch = useDispatch();
 
-  console.log(videogameDetail);
-
-  // const { DB_APY_KEY } = process.env;
-
   useEffect(() => {
 
     dispatch(getVideogameById(id));
@@ -49,7 +45,7 @@ const VideogameDetail = () => {
 
           <>
 
-            <img className='videogameImage' src={videogameDetail.background_image} alt={videogameDetail.name} />
+            <img className='videogameImage' src={videogameDetail.image} alt={videogameDetail.name} />
 
             <label>Name: {videogameDetail.name}</label>
 
@@ -63,7 +59,7 @@ const VideogameDetail = () => {
 
             {videogameDetail.platforms && videogameDetail.platforms.map((plat) => (
 
-              <span key={plat.platform.id}>{plat.platform.name}</span>
+              <span key={plat}>{plat}</span>
 
             ))}
 
