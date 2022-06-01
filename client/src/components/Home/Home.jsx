@@ -203,14 +203,14 @@ const Home = () => {
 
       <div className="videogamesContainer">
 
-        {currentVideogames && currentVideogames.map((videogame) => (
+        {currentVideogames.length !== 0 ? currentVideogames.map((videogame) => (
 
           <Videogame
             key={videogame.id}
             videogame={videogame}
           />
 
-        ))}
+        )) : <div className="spinner"></div>}
 
       </div>
 

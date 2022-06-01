@@ -157,7 +157,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             for (let i = 0; i < sortByGenre.length; i++) {
 
-                pushElem = sortByGenre[i].genres.filter(genre => genre.name === payload)
+                pushElem = sortByGenre[i].genre.filter(genr => genr === payload)
 
                 if (pushElem.length > 0) {
 
@@ -178,7 +178,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             let databaseVideogames = state.videogames;
 
-            databaseVideogames = databaseVideogames.filter(videogame => videogame.description !== "Not specified")
+            databaseVideogames = databaseVideogames.filter(videogame => typeof videogame.id === "string")
 
             return {
 

@@ -6,7 +6,7 @@ const Videogame = (props) => {
 
   const { videogame } = props;
 
-  const { id, name, background_image, genres, rating } = videogame;
+  const { id, name, image, genre, rating } = videogame;
 
   return (
 
@@ -14,13 +14,13 @@ const Videogame = (props) => {
 
     <Link to = {`/api/videogame/${id}`}>
 
-    <img className="videogameImage" src={background_image} alt={name} />
+    <img className="videogameImage" src={image} alt={name} />
     <div className='videogameInfo'>
     <h1 className="videogameName">{name}</h1>
 
-    <div className="videogameGenres">{genres.map((genre) => (
+    <div className="videogameGenres">{genre.map((genre) => (
 
-    <p key={genre.id}>{genre.name} </p>
+    <p key={genre}>{genre} </p>
 
     ))}
     </div>

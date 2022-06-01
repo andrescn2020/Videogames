@@ -96,11 +96,18 @@ export const sortByMoreRating = (payload) => {
 
 export const sortByLessRating = (payload) => {
 
-    return (dispatch) => {
+    // return (dispatch) => {
         
-        dispatch({ type: SORT_LESS_RATING, payload: payload });
+    //     dispatch({ type: SORT_LESS_RATING, payload: payload });
 
-    };
+    return { 
+
+        type: SORT_LESS_RATING, 
+        payload: payload
+        
+     }
+
+    // };
 };
 
 export const sortByGenre = (payload) => {
@@ -118,8 +125,8 @@ export const resetFilter = () => {
 
         try {
 
-            return axios.get(`https://api.rawg.io/api/games?key=b3b60d6dd3b44a0f9da23679368988e0`)
-                .then(res => dispatch({ type: RESET_FILTER, payload: res.data.results }))
+            return axios.get(`http://localhost:3001/api/videogames/`)
+                .then(res => dispatch({ type: RESET_FILTER, payload: res.data }))
 
         } catch (err) {
 
