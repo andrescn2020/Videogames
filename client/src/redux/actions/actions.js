@@ -68,37 +68,39 @@ export const getAllGenres = () => {
 
 export const sortByAsc = (payload) => {
 
-    return (dispatch) => {
+    return { 
         
-        dispatch({ type: SORT_ASC, payload: payload });
+        type: SORT_ASC,
+        payload: payload
+    
+    }
 
-    };
 };
 
 export const sortByDesc = (payload) => {
 
-    return (dispatch) => {
+    return { 
         
-        dispatch({ type: SORT_DESC, payload: payload });
+        type: SORT_DESC,
+        payload: payload
+        
+    }
 
-    };
 };
 
 export const sortByMoreRating = (payload) => {
 
-    return (dispatch) => {
-        
-        dispatch({ type: SORT_MORE_RATING, payload: payload });
+    return { 
 
-    };
+        type: SORT_MORE_RATING,
+        payload: payload 
+
+    }
+
 };
 
 
 export const sortByLessRating = (payload) => {
-
-    // return (dispatch) => {
-        
-    //     dispatch({ type: SORT_LESS_RATING, payload: payload });
 
     return { 
 
@@ -107,16 +109,17 @@ export const sortByLessRating = (payload) => {
         
      }
 
-    // };
 };
 
 export const sortByGenre = (payload) => {
 
-    return (dispatch) => {
-        
-        dispatch({ type: SORT_BY_GENRE, payload: payload });
+    return {
 
-    };
+        type: SORT_BY_GENRE, 
+        payload: payload 
+
+    }
+    
 };
 
 export const resetFilter = () => {
@@ -137,31 +140,24 @@ export const resetFilter = () => {
 
 };
 
-export const sortByDb = () => {
+export const sortByDb = (payload) => {
 
-    return async (dispatch) => {
+    return { 
 
-        try {
+        type: SORT_BY_DB, 
+        payload: payload
 
-            return axios.get(`http://localhost:3001/api/videogames/`)
-                .then(res => dispatch({ type: SORT_BY_DB, payload: res.data }))
-
-        } catch (err) {
-
-            console.error(err);
-
-        }
     };
 
 };
 
 export const cleanUp = () => {
 
-    return (dispatch) => {
-        
-        dispatch({ type: CLEAN_UP, payload: {} });
+    return { 
 
-    };
+        type: CLEAN_UP, payload: {} 
+
+    }
 
 }
 
@@ -170,8 +166,6 @@ export const searchBarTerm = (term) => {
     return async (dispatch) => {
 
         try {
-
-            console.log(term);
 
             return axios.get(`http://localhost:3001/api/videogames/?name=${term}`)
                 .then(res => dispatch({ type: QUERY_SEARCH, payload: res.data }))

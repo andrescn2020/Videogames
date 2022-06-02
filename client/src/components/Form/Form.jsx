@@ -21,11 +21,15 @@ const Form = () => {
     rating: 0,
     background_image: "",
     platforms: [],
-    genres: []
+    genre: []
 
   });
 
   const [disabled, setDisabled] = useState(true);
+
+  const [deleteGenre, setDeleteGenre] = useState("");
+
+  const [deletePlatform, setDeletePlatform] = useState("");
 
   ////////// USE_EFFECT ////////////////////////////////////////////////////////////////////
 
@@ -36,20 +40,20 @@ const Form = () => {
 
   }, [dispatch]);
 
-  
+
   useEffect(() => {
 
     if (input.name && input.description && input.platforms) {
 
-        setDisabled(false);
+      setDisabled(false);
 
     } else {
 
-        setDisabled(true);
+      setDisabled(true);
 
     }
 
-}, [input.name, input.description, input.platforms])
+  }, [input.name, input.description, input.platforms])
 
   ////////// VARIABLES ////////////////////////////////////////////////////////////////////
 
@@ -57,7 +61,7 @@ const Form = () => {
 
   let platformsAvaible = [];
 
-  videogames.map((videogame) => videogame.platforms.map((platform) => allPlatforms.add(platform.platform.name)));
+  videogames.map((videogame) => videogame.platforms.map((platform) => allPlatforms.add(platform)));
 
   for (const key of allPlatforms) {
 
@@ -73,7 +77,7 @@ const Form = () => {
 
     try {
 
-      if (input.name && input.platforms && input.genres) {
+      if (input.name && input.platforms && input.genre) {
 
         input.rating = parseInt(input.rating);
 
@@ -89,7 +93,7 @@ const Form = () => {
           rating: 0,
           background_image: "",
           platforms: [],
-          genres: []
+          genre: []
 
         });
 
@@ -151,120 +155,153 @@ const Form = () => {
       setInput((prevState) => {
 
 
-          const newState = {
-              ...prevState,
-              [e.target.name]: [...input.genres]
-          };
+        const newState = {
+          ...prevState,
+          [e.target.name]: [...input.genre]
+        };
 
-          return newState;
+        return newState;
 
       });
 
-  } else if (input.genres.includes(e.target.value)) {
+    } else if (input.genre.includes(e.target.value)) {
 
       setInput((prevState) => {
 
 
-          const newState = {
-              ...prevState,
-              [e.target.name]: [...input.genres]
-          };
+        const newState = {
+          ...prevState,
+          [e.target.name]: [...input.genre]
+        };
 
-          return newState;
+        return newState;
 
       });
 
 
-  } else {
+    } else {
 
       setInput((prevState) => {
 
-          const newState = {
-              ...prevState,
-              [e.target.name]: [...input.genres, e.target.value]
-          };
+        const newState = {
+          ...prevState,
+          [e.target.name]: [...input.genre, e.target.value]
+        };
 
-          return newState;
+        return newState;
 
       });
 
-  }
-
+    }
 
   }
 
   ///////// HANDLE_CHANGE_PLATFORM ////////////////////////////////////////////////////////////////////
-const handleChangeImage = (e) => {
 
-  setInput((prevState) => {
+  const handleChangeImage = (e) => {
 
-    const newState = {
+    setInput((prevState) => {
+
+      const newState = {
 
         ...prevState,
         [e.target.name]: e.target.value
 
-    };
+      };
 
-    return newState;
+      return newState;
 
-});
+    });
 
-}
+  }
 
+  const handleChangePlatform = (e) => {
 
-  // const handleChangePlatform = (e) => {
+    if (e.target.value === "Select" || e.target.name === []) {
 
-  //   if (e.target.value === "Select" || e.target.name === []) {
-
-  //     setInput((prevState) => {
-
-
-  //         const newState = {
-
-  //             ...prevState,
-  //             [e.target.name]: [...input.platforms]
-
-  //         };
-
-  //         return newState;
-
-  //     });
-
-  // } else if (input.platforms.includes(e.target.value)) {
-
-  //     setInput((prevState) => {
+      setInput((prevState) => {
 
 
-  //         const newState = {
+        const newState = {
 
-  //             ...prevState,
-  //             [e.target.name]: [...input.platforms]
+          ...prevState,
+          [e.target.name]: [...input.platforms]
 
-  //         };
+        };
 
-  //         return newState;
+        return newState;
 
-  //     });
+      });
+
+    } else if (input.platforms.includes(e.target.value)) {
+
+      setInput((prevState) => {
 
 
-  // } else {
+        const newState = {
 
-  //     setInput((prevState) => {
+          ...prevState,
+          [e.target.name]: [...input.platforms]
 
-  //         const newState = {
+        };
 
-  //             ...prevState,
-  //             [e.target.name]: [...input.platforms, e.target.value]
+        return newState;
 
-  //         };
+      });
 
-  //         return newState;
 
-  //     });
+    } else {
 
-  //   }
+      setInput((prevState) => {
 
-  // }
+        const newState = {
+
+          ...prevState,
+          [e.target.name]: [...input.platforms, e.target.value]
+
+        };
+
+        return newState;
+
+      });
+
+    }
+
+  }
+
+///////// DELETE SELECTED PLATFORM AND GENRES CASE /////////////////////////////////////////////////////
+
+  if (deleteGenre) {
+
+    if (input.genre.length === 0) {
+
+      //error.country = "Country is required"
+
+    } else {
+
+      input.genre = input.genre.filter((e) => e !== deleteGenre);
+
+    }
+
+    setDeleteGenre("");
+
+  }
+
+  if (deletePlatform) {
+
+    if (input.platforms.length === 0) {
+
+      //error.country = "Country is required"
+
+    } else {
+
+      input.platforms = input.platforms.filter((e) => e !== deletePlatform);
+
+    }
+
+    setDeletePlatform("");
+
+  }
 
   ////////// RENDER ////////////////////////////////////////////////////////////////////
 
@@ -344,17 +381,27 @@ const handleChangeImage = (e) => {
 
           <label>Platforms: </label>
 
-          {/* <select name="platforms" value={``} onChange={handleChangePlatform}>
+          <select name="platforms" value={``} onChange={handleChangePlatform}>
 
             <option value="Select">---------------</option>
 
-            {platformsAvaible.map((platform, i) => (
+            {platformsAvaible.map((platform) => (
 
               <option key={platform} value={platform}>{platform}</option>
 
             ))}
 
-          </select> */}
+          </select>
+
+          <div className='platformsSelected'>
+
+            {input.platforms.map((platform) => (
+
+              <button onClick={(e) => setDeletePlatform(e.target.value)} value={platform} key={platform}>{platform}</button>
+
+            ))}
+
+          </div>
 
         </div>
 
@@ -362,23 +409,33 @@ const handleChangeImage = (e) => {
 
           <label>Genres: </label>
 
-          <select name="genres" value={``} onChange={handleChangeGenre}>
+          <select name="genre" value={``} onChange={handleChangeGenre}>
 
             <option value="Select">---------------</option>
 
             {genres.map((genre) => (
 
-              <option key={genre.id} value={genre.id}>{genre.name}</option>
+              <option key={genre.id}>{genre.name}</option>
 
             ))}
 
           </select>
 
+          <div className='genresSelected'>
+
+            {input.genre.map((genr) => (
+
+              <button onClick={(e) => setDeleteGenre(e.target.value)} key={genr} value={genr}>{genr}</button>
+
+            ))}
+
+          </div>
+
         </div>
 
         <div>
 
-              <input type="file" name="background_image" onChange={handleChangeImage}/>Choose Image
+          <input type="file" name="image" onChange={handleChangeImage} />Choose Image
 
         </div>
 

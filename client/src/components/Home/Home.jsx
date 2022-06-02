@@ -99,9 +99,9 @@ const Home = () => {
 
   }
 
-  const handleDatabase = () => {
+  const handleDatabase = (e) => {
 
-    dispatch(sortByDb());
+    dispatch(sortByDb(e.target.value));
 
     setCurrentPage(1);
 
@@ -109,17 +109,19 @@ const Home = () => {
 
   }
 
+
+
   const handleSearchTerm = (e) => {
 
     setSearchTerm(e.target.value);
-
-    return videogames;
 
   }
 
   const handleSearchBar = (e) => {
 
     dispatch(searchBarTerm(searchTerm));
+
+    setSearchTerm("");
 
     setCurrentPage(e.target = 1);
 
@@ -172,6 +174,8 @@ const Home = () => {
 
     <div>
 
+      <input type="checkbox" />
+
       <select name="filter" onChange={handleSortByAsc}>
 
         <option value="SELECT">Alphabetic</option>
@@ -202,7 +206,7 @@ const Home = () => {
 
       <button onClick={handleDatabase}>Videogames created by form</button>
 
-      <input name="searchInput" className="searchBar" type="text" placeholder="Search..." onChange={handleSearchTerm} />
+      <input name="searchInput" className="searchBar" value={searchTerm} type="text" placeholder="Search..." onChange={handleSearchTerm} />
 
       <input type="submit" value="Search" onClick={handleSearchBar} />
 
