@@ -25,6 +25,15 @@ const Form = () => {
 
   });
 
+  const [ error, setError ] = useState({
+
+    name: "",
+    description: "",
+    platform: "",
+    genre: ""
+
+  });
+
   const [disabled, setDisabled] = useState(true);
 
   const [deleteGenre, setDeleteGenre] = useState("");
@@ -43,7 +52,7 @@ const Form = () => {
 
   useEffect(() => {
 
-    if (input.name && input.description && input.platforms) {
+    if (input.name && input.description && input.platforms && input.genre && !error.name && !error.description && !error.platform && !error.genre) {
 
       setDisabled(false);
 
@@ -53,7 +62,55 @@ const Form = () => {
 
     }
 
-  }, [input.name, input.description, input.platforms])
+  }, [input.name, input.description, input.platforms, input.genre, error.name, error.description, error.platform, error.genre])
+
+  function validate(input) {
+
+    const errors = {};
+
+    if (!input.name) {
+
+        errors.name = 'Name is required';
+
+    } else if (/[^\x20\x2D0-9A-Z\x5Fa-z\xC0-\xD6\xD8-\xF6\xF8-\xFF:]/g.test(input.name)) {
+
+        errors.name = 'Name incorrect';
+
+    } else if (input.name.length >= 30) {
+
+        errors.name = 'Name of game is too long (Max 30 char.)';
+
+    } else if (input.name.length <= 2) {
+
+        errors.name = 'Name of game is too short (Min 3 char.)';
+
+    } else if (input.name.charAt(0) === input.name.charAt(0).toLowerCase()) {
+
+        errors.name = 'First letter must be Upper Case';
+
+    }
+
+    if (!input.description) {
+
+        errors.description = 'Description is required';
+
+    }
+
+    if (input.platforms.length === 0) {
+
+        errors.platform = 'Platform is required';
+
+    }
+
+    if (input.genre.length === 0) {
+
+      errors.genre = 'Genre is required';
+
+  }
+
+    return errors;
+
+}
 
   ////////// VARIABLES ////////////////////////////////////////////////////////////////////
 
@@ -77,7 +134,7 @@ const Form = () => {
 
     try {
 
-      if (input.name && input.platforms && input.genre) {
+      if (input.name && input.description && input.platforms && input.genre && !error.name && !error.description && !error.platform && !error.genre) {
 
         input.rating = parseInt(input.rating);
 
@@ -123,6 +180,8 @@ const Form = () => {
 
         };
 
+        setError(validate(newState));
+
         return newState;
 
       });
@@ -137,6 +196,8 @@ const Form = () => {
           [e.target.name]: e.target.value
 
         };
+
+        setError(validate(newState));
 
         return newState;
 
@@ -156,9 +217,13 @@ const Form = () => {
 
 
         const newState = {
+
           ...prevState,
           [e.target.name]: [...input.genre]
+
         };
+
+        setError(validate(newState));
 
         return newState;
 
@@ -170,9 +235,13 @@ const Form = () => {
 
 
         const newState = {
+
           ...prevState,
           [e.target.name]: [...input.genre]
+
         };
+
+        setError(validate(newState));
 
         return newState;
 
@@ -184,9 +253,13 @@ const Form = () => {
       setInput((prevState) => {
 
         const newState = {
+
           ...prevState,
           [e.target.name]: [...input.genre, e.target.value]
+
         };
+
+        setError(validate(newState));
 
         return newState;
 
@@ -229,6 +302,8 @@ const Form = () => {
 
         };
 
+        setError(validate(newState));
+
         return newState;
 
       });
@@ -244,6 +319,8 @@ const Form = () => {
           [e.target.name]: [...input.platforms]
 
         };
+
+        setError(validate(newState));
 
         return newState;
 
@@ -261,6 +338,8 @@ const Form = () => {
 
         };
 
+        setError(validate(newState));
+
         return newState;
 
       });
@@ -275,7 +354,7 @@ const Form = () => {
 
     if (input.genre.length === 0) {
 
-      //error.country = "Country is required"
+      error.genre = "Genre is required"
 
     } else {
 
@@ -291,7 +370,7 @@ const Form = () => {
 
     if (input.platforms.length === 0) {
 
-      //error.country = "Country is required"
+      error.platform = "Platform is required"
 
     } else {
 
@@ -330,7 +409,7 @@ const Form = () => {
             name="name"
             value={input.name}
             onChange={handleChange}
-          />
+          /> <br></br> {error.name && <span>{error.name}</span>}
 
         </div>
 
@@ -343,7 +422,7 @@ const Form = () => {
             name="description"
             value={input.description}
             onChange={handleChange}
-          />
+          /> <br></br> {error.description && <span>{error.description}</span>}
 
         </div>
 
@@ -381,7 +460,7 @@ const Form = () => {
 
           <label>Platforms: </label>
 
-          <select name="platforms" value={``} onChange={handleChangePlatform}>
+          <select name="platforms" value={input.platforms[input.platforms.length - 1]} onChange={handleChangePlatform}>
 
             <option value="Select">---------------</option>
 
@@ -389,9 +468,11 @@ const Form = () => {
 
               <option key={platform} value={platform}>{platform}</option>
 
-            ))}
+            ))} 
 
           </select>
+
+          <br></br> {error.platform && <span>{error.platform}</span>}
 
           <div className='platformsSelected'>
 
@@ -409,7 +490,7 @@ const Form = () => {
 
           <label>Genres: </label>
 
-          <select name="genre" value={``} onChange={handleChangeGenre}>
+          <select name="genre" value={input.genre[input.genre.length - 1]} onChange={handleChangeGenre}>
 
             <option value="Select">---------------</option>
 
@@ -417,9 +498,11 @@ const Form = () => {
 
               <option key={genre.id}>{genre.name}</option>
 
-            ))}
+            ))} 
 
           </select>
+
+          <br></br> {error.genre && <span>{error.genre}</span>}
 
           <div className='genresSelected'>
 

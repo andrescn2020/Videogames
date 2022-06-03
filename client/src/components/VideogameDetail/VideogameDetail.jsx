@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getVideogameById, cleanUp } from '../../redux/actions/actions';
+import { getVideogameById, cleanUpDetail } from '../../redux/actions/actions';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const VideogameDetail = () => {
 
     return () => {
 
-      dispatch(cleanUp());
+      dispatch(cleanUpDetail());
 
     }
 

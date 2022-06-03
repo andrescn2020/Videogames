@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb, searchBarTerm } from "../../redux/actions/actions";
+import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb, searchBarTerm, cleanUpGames } from "../../redux/actions/actions";
 import Videogame from "../Videogame/Videogame";
 import "./Home.css";
 import { Link } from 'react-router-dom';
@@ -26,6 +26,12 @@ const Home = () => {
 
     dispatch(getAllVideogames());
     dispatch(getAllGenres());
+
+    // return () => {
+
+    //   dispatch(cleanUpGames());
+
+    // }
 
   }, [dispatch])
 
@@ -81,11 +87,19 @@ const Home = () => {
 
   const handleSortByGenre = (e) => {
 
-    dispatch(sortByGenre(e.target.value));
+    if(e.target.value === "Genre"){
 
-    setCurrentPage(1);
+      return videogames;
 
-    return videogames;
+    } else {
+
+      dispatch(sortByGenre(e.target.value));
+
+      setCurrentPage(1);
+  
+      return videogames;
+
+    }
 
   }
 
@@ -99,17 +113,27 @@ const Home = () => {
 
   }
 
-  const handleDatabase = (e) => {
+  const handleDatabaseAndApi = (e) => {
 
-    dispatch(sortByDb(e.target.value));
+    if(e.target.value === "All") {
 
-    setCurrentPage(1);
+      dispatch(getAllVideogames());
 
-    return videogames;
+      setCurrentPage(1);
+
+      return videogames;
+
+    } else {
+
+      dispatch(sortByDb(e.target.value));
+
+      setCurrentPage(1);
+
+      return videogames;
+
+    }
 
   }
-
-
 
   const handleSearchTerm = (e) => {
 
@@ -167,16 +191,13 @@ const Home = () => {
 
   /////////// RENDER /////////////////////////////////////////////
 
-
-
-
   return (
 
     <div>
 
       <input type="checkbox" />
 
-      <select name="filter" onChange={handleSortByAsc}>
+      <select name="alphabeticOrder" onChange={handleSortByAsc}>
 
         <option value="SELECT">Alphabetic</option>
         <option value="ASC">A-Z</option>
@@ -184,7 +205,7 @@ const Home = () => {
 
       </select>
 
-      <select name="filter" onChange={handleSortByRat}>
+      <select name="orderRating" onChange={handleSortByRat}>
 
         <option value="SELECT">Rating</option>
         <option value="MORE_RATING">MAX</option>
@@ -192,7 +213,9 @@ const Home = () => {
 
       </select>
 
-      <select name="filter" onChange={handleSortByGenre}>
+      <select name="genreFilter" onChange={handleSortByGenre}>
+
+      <option>Genre</option>
 
         {genres.map((genre) => (
 
@@ -202,9 +225,13 @@ const Home = () => {
 
       </select>
 
-      <button onClick={handleFilter}>Clear Filter</button>
+      <select name="dataFilter" onChange={handleDatabaseAndApi}>
 
-      <button onClick={handleDatabase}>Videogames created by form</button>
+          <option value="All">All</option>
+          <option value="Games created in form">Games created in form</option>
+          <option value="Games from api">Games from api</option>
+
+      </select>
 
       <input name="searchInput" className="searchBar" value={searchTerm} type="text" placeholder="Search..." onChange={handleSearchTerm} />
 
@@ -223,6 +250,8 @@ const Home = () => {
         <button onClick={() => setCurrentPage(currentPage + 1)}> Next </button>
 
       </div>
+
+      <button onClick={handleFilter}>Clear Filter</button>
 
       <Link to="/api/videogame/">
 

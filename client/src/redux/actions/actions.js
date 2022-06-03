@@ -10,8 +10,9 @@ export const SORT_MORE_RATING = "SORT_MORE_RATING";
 export const SORT_LESS_RATING = "SORT_LESS_RATING";
 export const SORT_BY_GENRE = "SORT_BY_GENRE";
 export const RESET_FILTER = 'RESET_FILTER';
-export const SORT_BY_DB = "SORT_BY_DB";
-export const CLEAN_UP = "CLEAN_UP";
+export const SORT_BY_DB_OR_API = "SORT_BY_DB_OR_API";
+export const CLEAN_UP_DETAIL = "CLEAN_UP_DETAIL";
+export const CLEAN_UP_GAME = "CLEAN_UP_GAME";
 export const QUERY_SEARCH = "QUERY_SEARCH";
  
 export const getAllVideogames = () => {
@@ -142,20 +143,32 @@ export const resetFilter = () => {
 
 export const sortByDb = (payload) => {
 
-    return { 
+    return {
 
-        type: SORT_BY_DB, 
-        payload: payload
+        type: SORT_BY_DB_OR_API, 
+        payload: payload 
 
-    };
+    }
 
 };
 
-export const cleanUp = () => {
+export const cleanUpDetail = () => {
 
     return { 
 
-        type: CLEAN_UP, payload: {} 
+        type: CLEAN_UP_DETAIL, 
+        payload: {} 
+
+    }
+
+}
+
+export const cleanUpGames = () => {
+
+    return { 
+
+        type: CLEAN_UP_GAME, 
+        payload: {} 
 
     }
 

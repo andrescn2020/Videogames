@@ -10,8 +10,9 @@ import {
     SORT_LESS_RATING,
     SORT_BY_GENRE,
     RESET_FILTER,
-    SORT_BY_DB,
-    CLEAN_UP,
+    SORT_BY_DB_OR_API,
+    CLEAN_UP_DETAIL,
+    CLEAN_UP_GAME,
     QUERY_SEARCH
 
 } from "../actions/actions";
@@ -24,7 +25,7 @@ const initialState = {
 
 };
 
-const rootReducer = (state = initialState, { type, payload }) => {
+const rootReducer = (state = initialState, { type, payload } ) => {
 
     switch (type) {
 
@@ -39,16 +40,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
         case GET_VIDEOGAME_DETAIL:
 
-        payload.description = payload.description.split("<p>").join("");
+            payload.description = payload.description.split("<p>").join("");
 
-        payload.description = payload.description.split("</p>").join("");
+            payload.description = payload.description.split("</p>").join("");
 
-        payload.description = payload.description.split("<br />").join("");
+            payload.description = payload.description.split("<br />").join("");
 
-        payload.description = payload.description.split("\n").join("");
+            payload.description = payload.description.split("\n").join("");
 
             return {
-                
+
                 ...state,
                 videogameDetail: payload
 
@@ -63,12 +64,21 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             };
 
-        case CLEAN_UP:
+        case CLEAN_UP_DETAIL:
 
             return {
 
                 ...state,
                 videogameDetail: payload
+
+            };
+
+        case CLEAN_UP_GAME:
+
+            return {
+
+                ...state,
+                videogames: payload
 
             };
 
@@ -83,7 +93,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
         case QUERY_SEARCH:
 
-        console.log(payload);
+            console.log(payload);
 
             return {
 
@@ -184,16 +194,24 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             };
 
-        case SORT_BY_DB:
+        case SORT_BY_DB_OR_API:
 
-            let databaseVideogames = state.videogames;
+            let videogamesFilter = state.videogames;
 
-            databaseVideogames = databaseVideogames.filter(videogame => videogame.description.includes("</p>") === false)
+        if(payload === "Games created in form") {
+
+            videogamesFilter = videogamesFilter.filter(videogame => videogame.description.includes("</p>") === false);
+
+        } else if (payload === "Games from api") {
+
+            videogamesFilter = videogamesFilter.filter(videogame => videogame.description.includes("</p>") === true);
+        
+        }
 
             return {
 
                 ...state,
-                videogames: databaseVideogames
+                videogames: videogamesFilter
 
             };
 
