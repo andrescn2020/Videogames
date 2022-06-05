@@ -1,24 +1,27 @@
 .videogameContainer {
 
-    width: 400px;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.842);
-    object-fit: contain;
-    margin-top: 50px;
+    width: auto;
+    height: auto;
+    background-color: rgba(182, 143, 143, 0.089);
+    object-fit: cover;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     padding: 0;
-    margin-left: 10px;
-    margin-bottom: 5px;
+    margin: 0.5rem;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
 
-
 }
+
+a:link{
+
+    text-decoration: none!important;
+
+  }
 
 .videogameContainer:hover{
 
     cursor: pointer;
-    transform: translateY(-15px);
+    transform: translateY(-5px);
     box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
     transition: all 0.25s;
 
@@ -31,17 +34,16 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: rgb(227, 219, 219);
     margin: 0;
-    border: 2px solid black;
-
 
 }
 
 .videogameInfo {
 
-    width: 100%;
-    height: 20%;
-    border: 2px solid red;
+    width: auto;
+    height: 50%;
     margin: 0;
+    padding-left: 0.5rem;
+    text-align: center;
 
 }
 
@@ -51,18 +53,21 @@
     height: 50%;
     object-fit: cover;
     margin-top: 0;
+    border-radius: 16px;
 
 }
 
 .videogameGenres {
 
-    height: 10%;
+    height: auto;
     font-size: 1rem;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: rgb(227, 219, 219);
     margin: 0;
     padding: 0;
-    border: 1px solid blue;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 0;
 
 }
 
@@ -70,6 +75,6 @@
 
     font-size: 1rem;
     margin: 0;
-    border: 1px solid purple
+    color: rgb(227, 219, 219);
 
 }

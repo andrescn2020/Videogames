@@ -1,16 +1,126 @@
 .videogamesContainer {
 
-    display: grid;
+    display: grid;  
     grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 0;
     align-content: center;
     justify-content: center;
-    row-gap: 0;
-    column-gap: 0;
-    margin-top: -20px;
+    margin: 0;
+    padding: 0;
 
 }
 
-.spinner{    
+button {
+
+	box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	background-color:#768d87d0;
+	border-radius:5px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #2b665e;
+
+}
+button:hover {
+
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	background-color:#6c7c7c;
+
+}
+button:active {
+
+	position:relative;
+	top:1px;
+
+}
+
+      
+
+body {
+
+    background-color: #000000fb;
+
+}
+
+.menuContainer {
+
+    padding: 0;
+    margin: 0;
+
+}
+.filterContainer {
+
+    display: flex;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    margin: 0;
+
+}
+
+.searchBar {
+
+     margin-right: 10px;
+
+}
+
+.titleFilterOrder {
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    color: rgb(227, 219, 219);
+
+}
+
+.selectFilter {
+
+    margin-right: 10px;
+
+}
+
+.buttonsContainer {
+
+    display: flex;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    margin: 0.5rem;
+
+}
+
+.clearAndCreateContainer {
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+
+}
+
+.paginationButton {
+
+    margin-right: 5px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 5px;
+
+}
+
+.spinner {    
 
     border: 12px solid rgb(0, 0, 0);
     width: 100px;
@@ -21,7 +131,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    
     animation: spin 1s linear infinite;
 
 }

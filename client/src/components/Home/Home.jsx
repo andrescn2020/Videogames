@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb, searchBarTerm, cleanUpGames } from "../../redux/actions/actions";
+import { getAllGenres, getAllVideogames, sortByGenre, sortByAsc, sortByDesc, sortByMoreRating, sortByLessRating, resetFilter, sortByDb, searchBarTerm } from "../../redux/actions/actions";
 import Videogame from "../Videogame/Videogame";
 import "./Home.css";
 import { Link } from 'react-router-dom';
@@ -193,57 +193,73 @@ const Home = () => {
 
   return (
 
-    <div>
+    <div className='container'>
 
-      <input type="checkbox" />
+      <div className='menuContainer'>
 
-      <select name="alphabeticOrder" onChange={handleSortByAsc}>
+        <div className='titleFilterOrder'>
 
-        <option value="SELECT">Alphabetic</option>
-        <option value="ASC">A-Z</option>
-        <option value="DESC">Z-A</option>
+          <h1>Filter and Orders</h1>
 
-      </select>
+        </div>
 
-      <select name="orderRating" onChange={handleSortByRat}>
+          <div className='filterContainer'>
 
-        <option value="SELECT">Rating</option>
-        <option value="MORE_RATING">MAX</option>
-        <option value="LESS_RATING">MIN</option>
+          <select className='selectFilter' name="alphabeticOrder" onChange={handleSortByAsc}>
 
-      </select>
+            <option value="SELECT">Alphabetic</option>
+            <option value="ASC">A-Z</option>
+            <option value="DESC">Z-A</option>
 
-      <select name="genreFilter" onChange={handleSortByGenre}>
+          </select>
 
-      <option>Genre</option>
+          <select className='selectFilter' name="orderRating" onChange={handleSortByRat}>
 
-        {genres.map((genre) => (
+            <option value="SELECT">Rating</option>
+            <option value="MORE_RATING">MAX</option>
+            <option value="LESS_RATING">MIN</option>
 
-          <option value={genre.name} key={genre.name}>{genre.name}</option>
+          </select>
 
-        ))}
+          <select className='selectFilter' name="genreFilter" onChange={handleSortByGenre}>
 
-      </select>
+          <option>Genre</option>
 
-      <select name="dataFilter" onChange={handleDatabaseAndApi}>
+            {genres.map((genre) => (
 
-          <option value="All">All</option>
-          <option value="Games created in form">Games created in form</option>
-          <option value="Games from api">Games from api</option>
+              <option value={genre.name} key={genre.name}>{genre.name}</option>
 
-      </select>
+            ))}
 
-      <input name="searchInput" className="searchBar" value={searchTerm} type="text" placeholder="Search..." onChange={handleSearchTerm} />
+          </select>
 
-      <input type="submit" value="Search" onClick={handleSearchBar} />
+          <select className='selectFilter' name="dataFilter" onChange={handleDatabaseAndApi}>
 
-      <div className="buttonsContainer">
+              <option value="All">All</option>
+              <option value="Games created in form">Games created in form</option>
+              <option value="Games from api">Games from api</option>
+
+          </select>
+
+          <div className='searchBarContainer'>
+
+          <input name="searchInput" className="searchBar" value={searchTerm} type="text" placeholder="Search..." onChange={handleSearchTerm} />
+
+          <button value="Search" onClick={handleSearchBar} >Search</button>
+
+          </div>
+
+          </div>
+
+        </div>
+
+    <div className="buttonsContainer">
 
         <button onClick={() => setCurrentPage(currentPage - 1)}> Previous </button>
 
         {buttons.map((number) => (
 
-          <button className="buttons" onClick={() => paginate(number)} key={number}>{number}</button>
+          <button className='paginationButton' onClick={() => paginate(number)} key={number}>{number}</button>
 
         ))}
 
@@ -251,13 +267,17 @@ const Home = () => {
 
       </div>
 
-      <button onClick={handleFilter}>Clear Filter</button>
+      <div className='clearAndCreateContainer'>
+
+      <button  onClick={handleFilter}>Clear Filter</button>
 
       <Link to="/api/videogame/">
 
         <button>Create Videogame</button>
 
       </Link>
+
+      </div>
 
       <div className="videogamesContainer">
 

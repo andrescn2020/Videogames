@@ -12,20 +12,21 @@ const Videogame = (props) => {
 
     <div className="videogameContainer">
 
-    <Link to = {`/api/videogame/${id}`}>
+    <Link className='link' to = {`/api/videogame/${id}`}>
 
     <img className="videogameImage" src={image} alt={name} />
     <div className='videogameInfo'>
-    <h1 className="videogameName">{name}</h1>
+      <h1 className="videogameName">{name}</h1>
 
-    <div className="videogameGenres">{genres.map((genre) => (
+      <div className="videogameGenres">{genres.map((genre) => (
 
-    <p key={genre.id}>{genre.name} </p>
+      <p key={genre.id}>{genre.name} </p>
 
-    ))}
-    </div>
+      ))}
 
-    <p className='videogameRating'>{rating}</p>
+      </div>
+
+      <p className='videogameRating'>Rating: {rating}</p>
 
     </div>
 
