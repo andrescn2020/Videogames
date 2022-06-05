@@ -2,20 +2,42 @@ const { Videogame, Genre } = require("../db");
 
 const createVideogame = async (req, res, next) => {
 
-    const { name, description, released, rating, platforms, genre } = req.body;
+    const { name, description, released, rating, platforms, image, genre } = req.body;
+
+    let genresDb = await Genre.findAll();
+
+    console.log(genresDb[0].dataValues.id);
 
     try {
 
         const newGame = await Videogame.create({
+
             name,
             description,
             released,
             rating,
-            platforms,
-            genre
+            image,
+            platforms
+            
         });
 
-        await newGame.addGenre(genre);
+        let data = []
+
+        let filterGenre = [];
+
+        let idGenres = [];
+
+        for (let i = 0; i < genre.length; i++) {
+
+            filterGenre =  genresDb.filter((elem) => elem.dataValues.name === genre[i])
+
+            data.push(filterGenre[0]);
+
+        }
+
+        data.map((element) => idGenres.push(element.dataValues.id))
+
+        await newGame.addGenre(idGenres);
         
         return res.status(201).json(newGame);  
 
@@ -33,14 +55,19 @@ const getVideogameById = async (req, res, next) => {
 
         const { id } = req.params;
 
-        let videogamesDb = await Videogame.findOne({
+            let videogamesDb = await Videogame.findOne({
 
-            where: { id: id },
-            include: Genre
+                where: {
+    
+                    id: id
+    
+                },
+    
+                include: Genre
+    
+            });
 
-        });
-
-        return res.json(videogamesDb);
+            return res.json(videogamesDb);
 
     } catch (err) {
 
@@ -54,12 +81,3 @@ module.exports = {
     getVideogameById,
     createVideogame
 }
-
-// {
-//     "name": "The zorr",
-//     "description": "a very long game",
-//     "released": "23-10-2015",
-//     "rating": 5,
-//     "platforms": ["XBOX", "Play Station 5"],
-//     "genres": ["Action"]
-// }

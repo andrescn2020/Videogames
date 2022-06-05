@@ -34,12 +34,12 @@ module.exports = (sequelize) => {
       }
     },
     description: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(10000),
       allowNull: false,
       validate: {
         customValidator(value) {
-          if (value.length >= 255) {
-            throw new Error("Description too long (Max 255 characters)");
+          if (value.length >= 10000) {
+            throw new Error("Description too long (Max 10000 characters)");
           } else if ((!/[\x20\x2D0-9A-Z\x5Fa-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\:"()']/.test(value))) {
             throw new Error("Description incorrect");
           }

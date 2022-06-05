@@ -4,9 +4,7 @@ const getGenres = async (req, res, next) => {
 
     try {
 
-        let genresDb = await Genre.findAll({
-            include: Videogame
-        });
+        let genresDb = await Genre.findAll();
 
         return res.json(genresDb);
 

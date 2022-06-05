@@ -37,12 +37,12 @@ const loadApiGenres = async function () {
         name: e.name,
 
       }
-
+      
     });
 
     await Genre.bulkCreate(filterApiGenres);
 
-    loadApiGames();
+     loadApiGames();
 
   } catch (err) {
 
@@ -60,7 +60,7 @@ const loadApiGames = async function () {
 
     let info = [];
 
-    for (let i = 2; i <= 2; i++) {
+    for (let i = 2; i <= 11; i++) {
 
       info = await axios.get(`https://api.rawg.io/api/games?key=${DB_APY_KEY}&page=${i}`);
 
@@ -76,14 +76,16 @@ const loadApiGames = async function () {
 
       try {
 
+        let gameDescription = await axios.get(`https://api.rawg.io/api/games/${e.id}?key=${DB_APY_KEY}`);
+
         let game = {
 
           name: e.name,
           image: e.background_image,
-          description: e.description === undefined ? e.description = "Not specified" : e.description,
+          description: e.description === undefined ? e.description = gameDescription.data.description : e.description,
           released: e.released,
           rating: e.rating,
-          platforms: e.platforms.map((platform) => platform.platform.name)
+          platforms: e.platforms.map((platform) => platform.platform.name),
 
         }
 

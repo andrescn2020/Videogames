@@ -11,8 +11,9 @@ const getVideogames = async (req, res, next) => {
 
             let videogamesDb = await Videogame.findAll({
 
-                where: { name: { [Op.substring]: `%${name}` } },
-                limit: 15
+                where: { name: { [Op.iLike]: `%${name}%` } },
+                limit: 15,
+                include: Genre
 
             })
 
@@ -29,10 +30,12 @@ const getVideogames = async (req, res, next) => {
         } else {
 
             let videogamesDb = await Videogame.findAll({
+
                 include: Genre
+
             });
 
-        return res.json(videogamesDb);
+            res.json(videogamesDb);
     
         }
 
