@@ -4,6 +4,8 @@ form {
     grid-template-rows: repeat(8, 1fr);
     padding-left: 2rem;
     width: 80vw;
+    backdrop-filter: blur(8px);
+    border: 2px solid black;
 
 }
 
