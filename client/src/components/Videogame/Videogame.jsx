@@ -15,7 +15,9 @@ const Videogame = (props) => {
     <Link className='link' to = {`/api/videogame/${id}`}>
 
     <img className="videogameImage" src={image} alt={name} />
+
     <div className='videogameInfo'>
+      
       <h1 className="videogameName">{name}</h1>
 
       <div className="videogameGenres">{genres.map((genre) => (

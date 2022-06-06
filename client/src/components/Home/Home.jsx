@@ -29,12 +29,6 @@ const Home = () => {
     dispatch(getAllVideogames());
     dispatch(getAllGenres());
 
-    // return () => {
-
-    //   dispatch(cleanUpGames());
-
-    // }
-
   }, [dispatch])
 
   /////////// VARIABLES ///////////////////////////////////////////
@@ -89,7 +83,7 @@ const Home = () => {
 
   const handleSortByGenre = (e) => {
 
-    if(e.target.value === "Genre"){
+    if (e.target.value === "Genre") {
 
       return videogames;
 
@@ -98,7 +92,7 @@ const Home = () => {
       dispatch(sortByGenre(e.target.value));
 
       setCurrentPage(1);
-  
+
       return videogames;
 
     }
@@ -117,7 +111,7 @@ const Home = () => {
 
   const handleDatabaseAndApi = (e) => {
 
-    if(e.target.value === "All") {
+    if (e.target.value === "All") {
 
       dispatch(getAllVideogames());
 
@@ -197,8 +191,6 @@ const Home = () => {
 
     <div className='container'>
 
- 
-
       <div className='menuContainer'>
 
         <div className='titleFilterOrder'>
@@ -211,58 +203,57 @@ const Home = () => {
 
           <div className='filterContainer'>
 
-          <select className='selectFilter' name="alphabeticOrder" onChange={handleSortByAsc}>
+            <select className='selectFilter' name="alphabeticOrder" onChange={handleSortByAsc}>
 
-            <option value="SELECT">Alphabetic</option>
-            <option value="ASC">A-Z</option>
-            <option value="DESC">Z-A</option>
+              <option value="SELECT">Alphabetic</option>
+              <option value="ASC">A-Z</option>
+              <option value="DESC">Z-A</option>
 
+            </select>
 
-          </select>
+            <select className='selectFilter' name="orderRating" onChange={handleSortByRat}>
 
-          <select className='selectFilter' name="orderRating" onChange={handleSortByRat}>
+              <option value="SELECT">Rating</option>
+              <option value="MORE_RATING">MAX</option>
+              <option value="LESS_RATING">MIN</option>
 
-            <option value="SELECT">Rating</option>
-            <option value="MORE_RATING">MAX</option>
-            <option value="LESS_RATING">MIN</option>
+            </select>
 
-          </select>
+            <select className='selectFilter' name="genreFilter" onChange={handleSortByGenre}>
 
-          <select className='selectFilter' name="genreFilter" onChange={handleSortByGenre}>
+              <option>Genre</option>
 
-          <option>Genre</option>
+              {genres.map((genre) => (
 
-            {genres.map((genre) => (
+                <option value={genre.name} key={genre.name}>{genre.name}</option>
 
-              <option value={genre.name} key={genre.name}>{genre.name}</option>
+              ))}
 
-            ))}
+            </select>
 
-          </select>
-
-          <select className='selectFilter' name="dataFilter" onChange={handleDatabaseAndApi}>
+            <select className='selectFilter' name="dataFilter" onChange={handleDatabaseAndApi}>
 
               <option value="All">All</option>
               <option value="Games created in form">Games created in form</option>
               <option value="Games from api">Games from api</option>
 
-          </select>
+            </select>
 
-          <div className='searchBarContainer'>
+            <div className='searchBarContainer'>
 
-          <input name="searchInput" className="searchBar" value={searchTerm} type="text" placeholder="Search..." onChange={handleSearchTerm} />
+              <input name="searchInput" className="searchBar" value={searchTerm} type="text" placeholder="Search..." onChange={handleSearchTerm} />
 
-          <button className='searchButton' value="Search" onClick={handleSearchBar} >Search</button>
+              <button className='searchButton' value="Search" onClick={handleSearchBar} >Search</button>
+
+            </div>
 
           </div>
 
-          </div>
-          
         </div>
 
-        </div>
+      </div>
 
-    <div className="buttonsContainer">
+      <div className="buttonsContainer">
 
         <button onClick={() => setCurrentPage(currentPage - 1)}> Previous </button>
 
@@ -278,13 +269,13 @@ const Home = () => {
 
       <div className='clearAndCreateContainer'>
 
-      <button  onClick={handleFilter}>Clear Filter</button>
+        <button onClick={handleFilter}>Clear Filter</button>
 
-      <Link to="/api/videogame/">
+        <Link to="/api/videogame/">
 
-        <button>Create Videogame</button>
+          <button>Create Videogame</button>
 
-      </Link>
+        </Link>
 
       </div>
 
@@ -300,7 +291,6 @@ const Home = () => {
         )) : notFound === "Doesnt exist a game with this name" ? <h2 className='notFound'>No result found</h2> : <div className='spinner'></div>}
 
       </div>
-
 
     </div>
 

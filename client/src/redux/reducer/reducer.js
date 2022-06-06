@@ -11,8 +11,6 @@ import {
     SORT_BY_GENRE,
     RESET_FILTER,
     SORT_BY_DB_OR_API,
-    CLEAN_UP_DETAIL,
-    CLEAN_UP_GAME,
     QUERY_SEARCH
 
 } from "../actions/actions";
@@ -59,24 +57,6 @@ const rootReducer = (state = initialState, { type, payload } ) => {
             };
 
         case RESET_FILTER:
-
-            return {
-
-                ...state,
-                videogames: payload
-
-            };
-
-        case CLEAN_UP_DETAIL:
-
-            return {
-
-                ...state,
-                videogameDetail: payload
-
-            };
-
-        case CLEAN_UP_GAME:
 
             return {
 
