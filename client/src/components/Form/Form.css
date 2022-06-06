@@ -1,0 +1,347 @@
+form {
+
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    padding-left: 2rem;
+    width: 80vw;
+
+}
+
+.inputName {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.25rem;
+
+}
+
+.inputNameField {
+
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    background: #8d888875;
+
+}
+
+.inputNameField::-ms-expand {
+
+    display: none;
+
+}
+
+ .inputNameField:hover,
+ .inputNameField:focus {
+
+    color: #000000;
+    background: #cccccc;
+
+}
+
+.inputNameField:disabled {
+
+    opacity: 0.5;
+    pointer-events: none;
+
+}
+
+.inputDescription {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.25rem;
+
+}
+
+.inputDescriptionField {
+
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    width: 25%;
+    background: #8d888875;
+
+}
+
+.inputDescriptionField::-ms-expand {
+
+    display: none;
+
+}
+
+ .inputDescriptionField:hover,
+ .inputDescriptionField:focus {
+
+    color: #000000;
+    background: #cccccc;
+
+}
+
+.inputDescriptionField:disabled {
+
+    opacity: 0.5;
+    pointer-events: none;
+
+}
+
+.inputRating {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.25rem;
+
+}
+
+.inputReleasedField {
+
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    background: #8d888875;
+
+}
+
+.inputRelease {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.25rem;
+
+}
+
+.inputReleasedField::-ms-expand {
+
+    display: none;
+
+}
+
+ .inputReleasedField:hover,
+ .inputReleasedField:focus {
+
+    color: #000000;
+    background: #cccccc;
+
+}
+
+.inputReleasedField:disabled {
+
+    opacity: 0.5;
+    pointer-events: none;
+
+}
+
+.inputImage {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.25rem;
+
+}
+
+.inputGenres {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.25rem;
+    height: 5rem;
+    margin-bottom: 1px solid orange;
+
+}
+
+.genresSelected {
+
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 1rem;
+
+}
+
+.columnGenre {
+
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.inputPlatforms {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.25rem;
+    height: 5rem;
+
+}
+
+.platformsSelected {
+
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 1rem;
+
+}
+
+.columnPlatform {
+
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.infoDetail {
+
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+
+.inputImage {
+
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: 700;
+    background: #8d888875;
+    padding-left: 1rem;
+    cursor: pointer;
+
+}
+
+.inputImage::-ms-expand {
+
+    display: none;
+
+}
+
+ .inputImage:hover,
+ .inputImage:focus {
+
+    color: #000000;
+    background: #cccccc;
+
+}
+
+.inputImage:disabled {
+
+    opacity: 0.5;
+    pointer-events: none;
+
+}
+
+.inputSubmit {
+
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+
+}
+
+.errorText {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red !important;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+
+}
+
+.formContainer {
+
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    height: auto;
+
+}
+
+.createActivity {
+
+    font-size: 2rem;
+    box-shadow: inset 0px 1px 3px 0px #7a9692;
+    background-color: rgba(182, 143, 143, 0.089);
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffffc5;
+    font-family: Arial;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0px -1px 0px #2b665e;
+
+}
+
+.createActivity:hover {
+
+    background: linear-gradient(to bottom, #414747 5%, #768d87 100%);
+    background-color: #414747;
+
+}
+
+.createActivity:active {
+
+    position: relative;
+    top: 1px;
+
+}
+
+
+select {
+
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 13px;
+    outline: 0;
+    border: 0px solid #b8acaccb;
+    border-radius: 0px;
+    background: #8d888875;
+    color: #7b7b7b;
+
+
+}
+
+select::-ms-expand {
+
+    display: none;
+
+}
+
+ select:hover,
+ select:focus {
+
+    color: #000000;
+    background: #cccccc;
+
+}
+
+select:disabled {
+
+    opacity: 0.5;
+    pointer-events: none;
+
+}
+

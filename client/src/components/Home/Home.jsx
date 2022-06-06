@@ -10,7 +10,7 @@ const Home = () => {
 
   /////////// CONSTANTS ///////////////////////////////////////////
 
-  const { videogames, genres } = useSelector((state) => state);
+  const { videogames, genres, notFound } = useSelector((state) => state);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -19,6 +19,8 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const dispatch = useDispatch();
+
+
 
   /////////// USEEFFECT ///////////////////////////////////////////
 
@@ -195,6 +197,8 @@ const Home = () => {
 
     <div className='container'>
 
+ 
+
       <div className='menuContainer'>
 
         <div className='titleFilterOrder'>
@@ -203,6 +207,8 @@ const Home = () => {
 
         </div>
 
+        <div className='select'>
+
           <div className='filterContainer'>
 
           <select className='selectFilter' name="alphabeticOrder" onChange={handleSortByAsc}>
@@ -210,6 +216,7 @@ const Home = () => {
             <option value="SELECT">Alphabetic</option>
             <option value="ASC">A-Z</option>
             <option value="DESC">Z-A</option>
+
 
           </select>
 
@@ -245,11 +252,13 @@ const Home = () => {
 
           <input name="searchInput" className="searchBar" value={searchTerm} type="text" placeholder="Search..." onChange={handleSearchTerm} />
 
-          <button value="Search" onClick={handleSearchBar} >Search</button>
+          <button className='searchButton' value="Search" onClick={handleSearchBar} >Search</button>
 
           </div>
 
           </div>
+          
+        </div>
 
         </div>
 
@@ -288,7 +297,7 @@ const Home = () => {
             videogame={videogame}
           />
 
-        )) : <div className="spinner"></div>}
+        )) : notFound === "Doesnt exist a game with this name" ? <h2 className='notFound'>No result found</h2> : <div className='spinner'></div>}
 
       </div>
 

@@ -1,0 +1,35 @@
+.infoContainer {
+
+    display: grid;
+    row-gap: 1rem;
+    text-align: center;
+
+}
+
+.homeButton {
+
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.platAndGenrContainer {
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+}
+
+label {
+
+    color: #ffffffc5;
+
+}
+
+span {
+
+    color: #ffffffc5;
+
+}

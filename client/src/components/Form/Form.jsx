@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllGenres, getAllVideogames } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import "./Form.css"
 
 const Form = () => {
 
@@ -25,7 +26,7 @@ const Form = () => {
 
   });
 
-  const [ error, setError ] = useState({
+  const [error, setError] = useState({
 
     name: "",
     description: "",
@@ -70,35 +71,39 @@ const Form = () => {
 
     if (!input.name) {
 
-        errors.name = 'Name is required';
+      errors.name = 'Name is required';
 
     } else if (/[^\x20\x2D0-9A-Z\x5Fa-z\xC0-\xD6\xD8-\xF6\xF8-\xFF:]/g.test(input.name)) {
 
-        errors.name = 'Name incorrect';
+      errors.name = 'Name incorrect';
 
     } else if (input.name.length >= 30) {
 
-        errors.name = 'Name of game is too long (Max 30 char.)';
+      errors.name = 'Name of game is too long (Max 30 char.)';
 
     } else if (input.name.length <= 2) {
 
-        errors.name = 'Name of game is too short (Min 3 char.)';
+      errors.name = 'Name of game is too short (Min 3 char.)';
 
     } else if (input.name.charAt(0) === input.name.charAt(0).toLowerCase()) {
 
-        errors.name = 'First letter must be Upper Case';
+      errors.name = 'First letter must be Upper Case';
 
     }
 
     if (!input.description) {
 
-        errors.description = 'Description is required';
+      errors.description = 'Description is required';
 
     }
 
     if (input.platforms.length === 0) {
 
-        errors.platform = 'Platform is required';
+      errors.platform = 'Platform is required';
+
+    } else if(input.platforms.length === 6) {
+
+      errors.platform = "Max 6 Platforms"
 
     }
 
@@ -106,11 +111,19 @@ const Form = () => {
 
       errors.genre = 'Genre is required';
 
-  }
+    } else if(input.genre.length > 5) {
+
+      errors.genre = "Max 6 Genres"
+
+    } else if(input.genre.length < 5 && input.genre.length > 0) {
+
+      errors.genre = "";
+
+    }
 
     return errors;
 
-}
+  }
 
   ////////// VARIABLES ////////////////////////////////////////////////////////////////////
 
@@ -248,6 +261,23 @@ const Form = () => {
       });
 
 
+    }  else if (input.genre.length === 6) {
+
+      setInput((prevState) => {
+
+        const newState = {
+
+          ...prevState,
+          [e.target.name]: [...input.genre]
+
+        };
+
+        setError(validate(newState));
+
+        return newState;
+
+      });
+    
     } else {
 
       setInput((prevState) => {
@@ -327,6 +357,23 @@ const Form = () => {
       });
 
 
+    } else if (input.platforms.length === 6) {
+
+      setInput((prevState) => {
+
+        const newState = {
+
+          ...prevState,
+          [e.target.name]: [...input.platforms]
+
+        };
+
+        setError(validate(newState));
+
+        return newState;
+
+      });
+    
     } else {
 
       setInput((prevState) => {
@@ -348,13 +395,13 @@ const Form = () => {
 
   }
 
-///////// DELETE SELECTED PLATFORM AND GENRES CASE /////////////////////////////////////////////////////
+  ///////// DELETE SELECTED PLATFORM AND GENRES CASE /////////////////////////////////////////////////////
 
   if (deleteGenre) {
 
     if (input.genre.length === 0) {
 
-      error.genre = "Genre is required"
+      error.genre = "Genre is required";
 
     } else {
 
@@ -388,147 +435,174 @@ const Form = () => {
 
     <div>
 
-      <div className="homeButton">
+      <div className='formContainer'>
 
-        <Link to="/api/videogames/">
+        <div className="homeButton">
 
-          <button>Home</button>
+          <Link to="/api/videogames/">
 
-        </Link>
+            <button>Home</button>
+
+          </Link>
+
+        </div>
+
+        <form onSubmit={handleSubmit}>
+
+          <div className='inputName'>
+
+            <label>Videogame Name: </label>
+
+            <input
+              className='inputNameField'
+              type="text"
+              name="name"
+              value={input.name}
+              onChange={handleChange}
+            /> <br></br> {error.name && <span className='errorText'>{error.name}</span>}
+
+          </div>
+
+          <div className='inputDescription'>
+
+            <label>Description: </label>
+
+            <textarea
+              className='inputDescriptionField'
+              type="text"
+              name="description"
+              value={input.description}
+              onChange={handleChange}
+            /> <br></br> {error.description && <span className='errorText'>{error.description}</span>}
+
+          </div>
+
+          <div className='inputRelease'>
+
+            <label>Released: </label>
+
+            <input
+              className='inputReleasedField'
+              type="date"
+              name="released"
+              value={input.released}
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <div className='inputRating'>
+
+            <label>Rating: </label>
+
+            <select name="rating" value={input.rating} onChange={handleChange}>
+
+              <option value="Unspecified" >-</option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+
+            </select>
+
+          </div>
+
+          <div className='inputPlatforms'>
+
+            <div className='columnPlatform'>
+
+              <div className='infoDetail'>
+
+                <label>Platform: </label>
+
+                <select name="platforms" value={input.platforms[input.platforms.length - 1]} onChange={handleChangePlatform}>
+
+                  <option value="Select">---------------</option>
+
+                  {platformsAvaible.map((plat) => (
+
+                    <option key={plat}>{plat}</option>
+
+                  ))}
+
+                </select>
+
+                {error.platform && <span className='errorText'>{error.platform}</span>}
+
+              </div>
+
+              <br></br>
+
+              <div className='platformsSelected'>
+
+                {input.platforms.map((platform) => (
+
+                  <button className='platformsButtons' onClick={(e) => setDeletePlatform(e.target.value)} key={platform} value={platform}>{platform}</button>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className='inputGenres'>
+
+            <div className='columnGenre'>
+
+              <div className='infoDetail'>
+
+                <label>Genres: </label>
+
+                <select name="genre" value={input.genre[input.genre.length - 1]} onChange={handleChangeGenre}>
+
+                  <option value="Select">---------------</option>
+
+                  {genres.map((genre) => (
+
+                    <option key={genre.id}>{genre.name}</option>
+
+                  ))}
+
+                </select>
+
+                {error.genre && <span className='errorText'>{error.genre}</span>}
+
+              </div>
+
+              <br></br>
+
+              <div className='genresSelected'>
+
+                {input.genre.map((genr) => (
+
+                  <button className='genreButtons' onClick={(e) => setDeleteGenre(e.target.value)} key={genr} value={genr}>{genr}</button>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div>
+
+            <input className='inputImage' type="url" name="image" placeholder='Imagen URL...' onChange={handleChangeImage} />
+
+          </div>
+
+          <div className='inputSubmit'>
+
+            <input className="createActivity" type="submit" disabled={disabled} value="Create Videogame" />
+
+          </div>
+
+        </form>
 
       </div>
-
-      <form onSubmit={handleSubmit}>
-
-        <div className='inputName'>
-
-          <label>Videogame Name: </label>
-
-          <input
-            type="text"
-            name="name"
-            value={input.name}
-            onChange={handleChange}
-          /> <br></br> {error.name && <span>{error.name}</span>}
-
-        </div>
-
-        <div className='inputDescription'>
-
-          <label>Description: </label>
-
-          <textarea
-            type="text"
-            name="description"
-            value={input.description}
-            onChange={handleChange}
-          /> <br></br> {error.description && <span>{error.description}</span>}
-
-        </div>
-
-        <div className='inputRelease'>
-
-          <label>Released: </label>
-
-          <input
-            type="date"
-            name="released"
-            value={input.released}
-            onChange={handleChange}
-          />
-
-        </div>
-
-        <div className='inputRating'>
-
-          <label>Rating: </label>
-
-          <select name="rating" value={input.rating} onChange={handleChange}>
-
-            <option value="Unspecified" >-</option>
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-
-          </select>
-
-        </div>
-
-        <div className='inputPlatforms'>
-
-          <label>Platforms: </label>
-
-          <select name="platforms" value={input.platforms[input.platforms.length - 1]} onChange={handleChangePlatform}>
-
-            <option value="Select">---------------</option>
-
-            {platformsAvaible.map((platform) => (
-
-              <option key={platform} value={platform}>{platform}</option>
-
-            ))} 
-
-          </select>
-
-          <br></br> {error.platform && <span>{error.platform}</span>}
-
-          <div className='platformsSelected'>
-
-            {input.platforms.map((platform) => (
-
-              <button onClick={(e) => setDeletePlatform(e.target.value)} value={platform} key={platform}>{platform}</button>
-
-            ))}
-
-          </div>
-
-        </div>
-
-        <div className='inputGenres'>
-
-          <label>Genres: </label>
-
-          <select name="genre" value={input.genre[input.genre.length - 1]} onChange={handleChangeGenre}>
-
-            <option value="Select">---------------</option>
-
-            {genres.map((genre) => (
-
-              <option key={genre.id}>{genre.name}</option>
-
-            ))} 
-
-          </select>
-
-          <br></br> {error.genre && <span>{error.genre}</span>}
-
-          <div className='genresSelected'>
-
-            {input.genre.map((genr) => (
-
-              <button onClick={(e) => setDeleteGenre(e.target.value)} key={genr} value={genr}>{genr}</button>
-
-            ))}
-
-          </div>
-
-        </div>
-
-        <div>
-
-          <input type="file" name="image" onChange={handleChangeImage} />Choose Image
-
-        </div>
-
-        <div className='inputSubmit'>
-
-          <input className="createActivity" type="submit" disabled={disabled} value="Create Videogame" />
-
-        </div>
-
-      </form>
 
     </div>
 

@@ -1,6 +1,6 @@
 .videogamesContainer {
 
-    display: grid;  
+    display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-column-gap: 0;
     align-content: center;
@@ -10,43 +10,7 @@
 
 }
 
-button {
 
-	box-shadow:inset 0px 1px 3px 0px #91b8b3;
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	background-color:#768d87d0;
-	border-radius:5px;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
-
-}
-button:hover {
-
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	background-color:#6c7c7c;
-
-}
-button:active {
-
-	position:relative;
-	top:1px;
-
-}
-
-      
-
-body {
-
-    background-color: #000000fb;
-
-}
 
 .menuContainer {
 
@@ -54,6 +18,7 @@ body {
     margin: 0;
 
 }
+
 .filterContainer {
 
     display: flex;
@@ -66,7 +31,30 @@ body {
 
 .searchBar {
 
-     margin-right: 10px;
+    margin-right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 13px;
+    outline: 0;
+    background: #8d888875;
+    color: #7b7b7b;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+}
+
+.searchButton {
+
+    font-size: 1.5rem;
+
+}
+
+ .searchBar:hover,
+ .searchBar:focus {
+
+    color: #000000;
+    background: #cccccc;
 
 }
 
@@ -120,9 +108,9 @@ body {
 
 }
 
-.spinner {    
+.spinner {
 
-    border: 12px solid rgb(0, 0, 0);
+    border: 12px solid rgb(227, 219, 219);
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -135,17 +123,105 @@ body {
 
 }
 
-@keyframes spin{
+@keyframes spin {
 
-    0%{
+    0% {
 
         transform: rotate(0deg);
 
     }
 
-    100%{
+    100% {
 
         transform: rotate(360deg);
-        
+
     }
+}
+
+.select {
+
+    width: 100%;
+
+}
+
+.select select {
+
+    font-family: 'Arial';
+    cursor: pointer;
+    padding: 5px 13px;
+    outline: 0;
+    border: 0px solid #b8acaccb;
+    border-radius: 0px;
+    background: #8d888875;
+    color: #7b7b7b;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+}
+
+.select select::-ms-expand {
+
+    display: none;
+
+}
+
+.select select:hover,
+.select select:focus {
+
+    color: #000000;
+    background: #cccccc;
+
+}
+
+.select select:disabled {
+
+    opacity: 0.5;
+    pointer-events: none;
+
+}
+
+button {
+
+    box-shadow: inset 0px 1px 3px 0px #7a9692;
+    background-color: rgba(182, 143, 143, 0.089);
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffffc5;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+    text-shadow: 0px -1px 0px #2b665e;
+
+}
+
+button:hover {
+
+    background: linear-gradient(to bottom, #414747 5%, #768d87 100%);
+    background-color: #414747;
+
+}
+
+button:active {
+
+    position: relative;
+    top: 1px;
+
+}
+
+body {
+
+    background-image: url("../../assets/gamekbg_generated.jpg");
+
+}
+
+.notFound {
+
+    color: #ffffffc5;
+    width: 100vmax;
+    text-align: center;
+    font-size: 3rem;
+
 }

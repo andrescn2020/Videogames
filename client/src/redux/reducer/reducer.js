@@ -20,6 +20,7 @@ import {
 const initialState = {
 
     videogames: [],
+    notFound: "",
     videogameDetail: {},
     genres: []
 
@@ -47,6 +48,8 @@ const rootReducer = (state = initialState, { type, payload } ) => {
             payload.description = payload.description.split("<br />").join("");
 
             payload.description = payload.description.split("\n").join("");
+
+            console.log(payload.platforms);
 
             return {
 
@@ -93,15 +96,23 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
         case QUERY_SEARCH:
 
-            console.log(payload);
+        let queryVideogames = state.videogames;
+
+        if (payload === "Doesnt exist a game with this name") {
+            
+            queryVideogames = [];
+
+        }
 
             return {
 
                 ...state,
-                videogames: payload
+                notFound: payload,
+                videogames: queryVideogames
 
             };
-
+        
+           
         case CREATE_VIDEOGAME:
 
             return {
