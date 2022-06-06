@@ -103,6 +103,10 @@ const Home = () => {
 
     dispatch(resetFilter());
 
+    document.getElementById("dataFilter").value = "All";
+
+    document.getElementById("genreFilter").value = "Genre";
+
     setCurrentPage(1);
 
     return videogames;
@@ -219,7 +223,7 @@ const Home = () => {
 
             </select>
 
-            <select className='selectFilter' name="genreFilter" onChange={handleSortByGenre}>
+            <select id='genreFilter' className='selectFilter' name="genreFilter" onChange={handleSortByGenre}>
 
               <option>Genre</option>
 
@@ -231,7 +235,7 @@ const Home = () => {
 
             </select>
 
-            <select className='selectFilter' name="dataFilter" onChange={handleDatabaseAndApi}>
+            <select id='dataFilter' className='selectFilter' name="dataFilter" onChange={handleDatabaseAndApi}>
 
               <option value="All">All</option>
               <option value="Games created in form">Games created in form</option>

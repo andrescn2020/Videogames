@@ -76,7 +76,9 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
         case QUERY_SEARCH:
 
-        let queryVideogames = state.videogames;
+        let queryVideogames = payload;
+
+        console.log(payload);
 
         if (payload === "Doesnt exist a game with this name") {
             
@@ -166,6 +168,8 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
             let pushElem = [];
 
+            let error = "";
+
             for (let i = 0; i < sortByGenre.length; i++) {
 
                 pushElem = sortByGenre[i].genres.filter(genre => genre.name === payload)
@@ -178,9 +182,16 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
             }
 
+            if(filteredVideogamesByGenre.length === 0) {
+
+                error = "Doesnt exist a game with this name";
+
+            }
+
             return {
 
                 ...state,
+                notFound: error,
                 videogames: filteredVideogamesByGenre
 
             };
@@ -188,6 +199,8 @@ const rootReducer = (state = initialState, { type, payload } ) => {
         case SORT_BY_DB_OR_API:
 
             let videogamesFilter = state.videogames;
+
+            let errorData = "";
 
         if(payload === "Games created in form") {
 
@@ -197,11 +210,22 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
             videogamesFilter = videogamesFilter.filter(videogame => videogame.description.includes("</p>") === true);
         
+        } else if (payload === "All") {
+
+            videogamesFilter = state.videogames;
+
+        }
+
+        if(videogamesFilter.length === 0) {
+
+            errorData = "Doesnt exist a game with this name";
+
         }
 
             return {
 
                 ...state,
+                notFound: errorData,
                 videogames: videogamesFilter
 
             };

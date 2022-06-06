@@ -98,6 +98,9 @@ form {
     margin-left: 1rem;
     font-size: 1.5rem;
     background: #8d888875;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 
 }
 
