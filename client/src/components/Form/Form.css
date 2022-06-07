@@ -152,7 +152,6 @@ form {
     align-items: center;
     margin: 0.25rem;
     height: 5rem;
-    margin-bottom: 1px solid orange;
 
 }
 
@@ -165,6 +164,7 @@ form {
     align-items: center;
     text-align: center;
     margin: 1rem;
+    width: 25%;
 
 }
 
@@ -196,6 +196,7 @@ form {
     align-items: center;
     text-align: center;
     margin: 1rem;
+    width: 25%;
 
 }
 

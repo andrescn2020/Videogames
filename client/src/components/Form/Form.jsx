@@ -99,6 +99,14 @@ const Form = () => {
 
       errors.description = "Special Characters is not allowed";
 
+    } else if (input.description.length > 299) {
+
+      errors.description = "Max 300 Characters";
+
+    } else if (input.description.length < 10) {
+
+      errors.description = "Min 10 Characters";
+
     }
 
     if (input.platforms.length === 0) {
