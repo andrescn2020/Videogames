@@ -48,6 +48,12 @@ const Form = () => {
     dispatch(getAllGenres());
     dispatch(getAllVideogames());
 
+    return () => {
+
+      dispatch(getAllVideogames());
+
+    }
+
   }, [dispatch]);
 
 

@@ -11,7 +11,7 @@ import {
     SORT_BY_GENRE,
     RESET_FILTER,
     SORT_BY_DB_OR_API,
-    QUERY_SEARCH
+    QUERY_SEARCH,
 
 } from "../actions/actions";
 
@@ -24,7 +24,7 @@ const initialState = {
 
 };
 
-const rootReducer = (state = initialState, { type, payload } ) => {
+const rootReducer = (state = initialState, { type, payload }) => {
 
     switch (type) {
 
@@ -46,8 +46,6 @@ const rootReducer = (state = initialState, { type, payload } ) => {
             payload.description = payload.description.split("<br />").join("");
 
             payload.description = payload.description.split("\n").join("");
-
-            console.log(payload.platforms);
 
             return {
 
@@ -76,15 +74,15 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
         case QUERY_SEARCH:
 
-        let queryVideogames = payload;
+            let queryVideogames = payload;
 
-        console.log(payload);
+            console.log(payload);
 
-        if (payload === "Doesnt exist a game with this name") {
-            
-            queryVideogames = [];
+            if (payload === "Doesnt exist a game with this name") {
 
-        }
+                queryVideogames = [];
+
+            }
 
             return {
 
@@ -93,8 +91,8 @@ const rootReducer = (state = initialState, { type, payload } ) => {
                 videogames: queryVideogames
 
             };
-        
-           
+
+
         case CREATE_VIDEOGAME:
 
             return {
@@ -182,7 +180,7 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
             }
 
-            if(filteredVideogamesByGenre.length === 0) {
+            if (filteredVideogamesByGenre.length === 0) {
 
                 error = "Doesnt exist a game with this name";
 
@@ -202,25 +200,25 @@ const rootReducer = (state = initialState, { type, payload } ) => {
 
             let errorData = "";
 
-        if(payload === "Games created in form") {
+            if (payload === "Games created in form") {
 
-            videogamesFilter = videogamesFilter.filter(videogame => videogame.description.includes("</p>") === false);
+                videogamesFilter = videogamesFilter.filter(videogame => videogame.description.includes("</p>") === false);
 
-        } else if (payload === "Games from api") {
+            } else if (payload === "Games from api") {
 
-            videogamesFilter = videogamesFilter.filter(videogame => videogame.description.includes("</p>") === true);
-        
-        } else if (payload === "All") {
+                videogamesFilter = videogamesFilter.filter(videogame => videogame.description.includes("</p>") === true);
 
-            videogamesFilter = state.videogames;
+            } else if (payload === "All") {
 
-        }
+                videogamesFilter = state.videogames;
 
-        if(videogamesFilter.length === 0) {
+            }
 
-            errorData = "Doesnt exist a game with this name";
+            if (videogamesFilter.length === 0) {
 
-        }
+                errorData = "Doesnt exist a game with this name";
+
+            }
 
             return {
 

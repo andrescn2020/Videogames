@@ -20,8 +20,6 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-
-
   /////////// USEEFFECT ///////////////////////////////////////////
 
   useEffect(() => {
@@ -106,6 +104,10 @@ const Home = () => {
     document.getElementById("dataFilter").value = "All";
 
     document.getElementById("genreFilter").value = "Genre";
+
+    document.getElementById("ratingOrder").value = "Rating";
+
+    document.getElementById("alphabeticOrder").value = "Alphabetic";
 
     setCurrentPage(1);
 
@@ -207,17 +209,17 @@ const Home = () => {
 
           <div className='filterContainer'>
 
-            <select className='selectFilter' name="alphabeticOrder" onChange={handleSortByAsc}>
+            <select id='alphabeticOrder' className='selectFilter' name="alphabeticOrder" onChange={handleSortByAsc}>
 
-              <option value="SELECT">Alphabetic</option>
+              <option>Alphabetic</option>
               <option value="ASC">A-Z</option>
               <option value="DESC">Z-A</option>
 
             </select>
 
-            <select className='selectFilter' name="orderRating" onChange={handleSortByRat}>
+            <select id='ratingOrder' className='selectFilter' name="orderRating" onChange={handleSortByRat}>
 
-              <option value="SELECT">Rating</option>
+              <option>Rating</option>
               <option value="MORE_RATING">MAX</option>
               <option value="LESS_RATING">MIN</option>
 

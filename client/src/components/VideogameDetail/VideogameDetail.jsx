@@ -20,8 +20,6 @@ const VideogameDetail = () => {
 
   }, [dispatch, id]);
 
-  console.log(videogameDetail);
-
   return (
 
     <div>
