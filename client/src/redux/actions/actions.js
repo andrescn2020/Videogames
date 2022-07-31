@@ -20,7 +20,7 @@ export const getAllVideogames = () => {
 
         try {
 
-            return axios.get(`http://localhost:3001/api/videogames/`)
+            return axios.get(`https://videogamesback25a.herokuapp.com/api/videogames/`)
                 .then(res => dispatch({ type: GET_ALL_VIDEOGAMES, payload: res.data }))
                 
 
@@ -50,7 +50,7 @@ export const getVideogameById = (id) => {
 
         try {
 
-            return axios.get(`http://localhost:3001/api/videogame/${id}`)
+            return axios.get(`https://videogamesback25a.herokuapp.com/api/videogame/${id}`)
                 .then(res => dispatch({ type: GET_VIDEOGAME_DETAIL, payload: res.data}))
 
         } catch (err) {
@@ -67,7 +67,7 @@ export const getAllGenres = () => {
 
         try {
 
-            return axios.get('http://localhost:3001/api/genres/')
+            return axios.get('https://videogamesback25a.herokuapp.com/api/genres/')
                 .then(res => dispatch({ type: GET_ALL_GENRES, payload: res.data }))
 
         } catch (err) {
@@ -140,7 +140,7 @@ export const resetFilter = () => {
 
         try {
 
-            return axios.get(`http://localhost:3001/api/videogames/`)
+            return axios.get(`https://videogamesback25a.herokuapp.com/api/videogames/`)
                 .then(res => dispatch({ type: RESET_FILTER, payload: res.data }))
 
         } catch (err) {
@@ -169,7 +169,7 @@ export const searchBarTerm = (term) => {
 
         try {
 
-            return axios.get(`http://localhost:3001/api/videogames/?name=${term}`)
+            return axios.get(`https://videogamesback25a.herokuapp.com/api/videogames/?name=${term}`)
                 .then(res => dispatch({ type: QUERY_SEARCH, payload: res.data }))
                 
 
