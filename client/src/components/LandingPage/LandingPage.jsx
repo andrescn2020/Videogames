@@ -6,7 +6,7 @@ const LandingPage = () => {
 
   return (
 
-    <div>
+    <div className='landingPageContainer'>
 
       <h1 className='welcome'>Welcome to the Videogames PI!</h1>
 
@@ -14,7 +14,7 @@ const LandingPage = () => {
 
         <Link style={{ "textDecoration": "none" }} to="api/videogames/">
 
-          <button className='exploreLink'>Explore Videogames!</button>
+          <button className='exploreLink'> Start </button>
 
         </Link>
 

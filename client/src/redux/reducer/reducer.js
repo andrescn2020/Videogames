@@ -12,6 +12,7 @@ import {
     RESET_FILTER,
     SORT_BY_DB_OR_API,
     QUERY_SEARCH,
+    CLEAR_COMPONENT
 
 } from "../actions/actions";
 
@@ -37,6 +38,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
             };
 
+        case CLEAR_COMPONENT:
+
+            return {
+
+                ...state,
+                videogameDetail: payload
+
+            };
+
         case GET_VIDEOGAME_DETAIL:
 
             payload.description = payload.description.split("<p>").join("");
@@ -44,6 +54,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
             payload.description = payload.description.split("</p>").join("");
 
             payload.description = payload.description.split("<br />").join("");
+
+            payload.description = payload.description.split("&#39;").join("");
+
+            payload.description = payload.description.split("<h3>").join("");
+
+            payload.description = payload.description.split("</h3>").join("");
 
             payload.description = payload.description.split("\n").join("");
 

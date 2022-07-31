@@ -18,115 +18,117 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require('dotenv').config();
+const { loadApiGenres, loadApiGames } = require('./precharge.js');
 const server = require('./src/app.js');
 const { conn, Videogame, Genre } = require('./src/db.js');
-const axios = require('axios');
+// const { loadApiGenres, loadApiGames } = require('./src/precharge.js');
+// const axios = require('axios');
 
-const { DB_APY_KEY } = process.env;
+// const { DB_APY_KEY } = process.env;
 
-const loadApiGenres = async function () {
+// const loadApiGenres = async function () {
 
-  try {
+//   try {
 
-    let genresData = await axios.get(`https://api.rawg.io/api/genres?key=${DB_APY_KEY}`);
+//     let genresData = await axios.get(`https://api.rawg.io/api/genres?key=${DB_APY_KEY}`);
 
-    const filterApiGenres = genresData.data.results.map((e) => {
+//     const filterApiGenres = genresData.data.results.map((e) => {
 
-      return {
+//       return {
 
-        name: e.name,
+//         name: e.name,
 
-      }
+//       }
       
-    });
+//     });
 
-    await Genre.bulkCreate(filterApiGenres);
+//     await Genre.bulkCreate(filterApiGenres);
 
-     loadApiGames();
+//      loadApiGames();
 
-  } catch (err) {
+//   } catch (err) {
 
-    console.log(err);
+//     console.log(err);
 
-  }
+//   }
 
-}
+// }
 
-const loadApiGames = async function () {
+// const loadApiGames = async function () {
 
-  try {
+//   try {
 
-    let apiData = await axios.get(`https://api.rawg.io/api/games?key=${DB_APY_KEY}`);
+//     let apiData = await axios.get(`https://api.rawg.io/api/games?key=${DB_APY_KEY}`);
 
-    let info = [];
+//     let info = [];
 
-    for (let i = 2; i <= 11; i++) {
+//     for (let i = 2; i <= 11; i++) {
 
-      info = await axios.get(`https://api.rawg.io/api/games?key=${DB_APY_KEY}&page=${i}`);
+//       info = await axios.get(`https://api.rawg.io/api/games?key=${DB_APY_KEY}&page=${i}`);
 
-      info = info.data;
+//       info = info.data;
 
-      apiData.data.results = apiData.data.results.concat(info.results);
+//       apiData.data.results = apiData.data.results.concat(info.results);
 
-    }
+//     }
 
-    let filterApiGames = apiData.data.results.map(async (e) => {
+//     let filterApiGames = apiData.data.results.map(async (e) => {
 
-      let genres = await Genre.findAll();
+//       let genres = await Genre.findAll();
 
-      try {
+//       try {
 
-        let gameDescription = await axios.get(`https://api.rawg.io/api/games/${e.id}?key=${DB_APY_KEY}`);
+//         let gameDescription = await axios.get(`https://api.rawg.io/api/games/${e.id}?key=${DB_APY_KEY}`);
 
-        let game = {
+//         let game = {
 
-          name: e.name,
-          image: e.background_image,
-          description: e.description === undefined ? e.description = gameDescription.data.description : e.description,
-          released: e.released,
-          rating: e.rating,
-          platforms: e.platforms.map((platform) => platform.platform.name),
+//           name: e.name,
+//           image: e.background_image,
+//           description: e.description === undefined ? e.description = gameDescription.data.description : e.description,
+//           released: e.released,
+//           rating: e.rating,
+//           platforms: e.platforms.map((platform) => platform.platform.name),
 
-        }
+//         }
 
-        let gameCreated = await Videogame.create(game);
+//         let gameCreated = await Videogame.create(game);
 
-        e.genres.map( async (c) => {
+//         e.genres.map( async (c) => {
 
-          try {
+//           try {
             
-            let info = genres.filter(a => a.name === c.name);
+//             let info = genres.filter(a => a.name === c.name);
 
-            let id = info[0].dataValues.id;
+//             let id = info[0].dataValues.id;
 
-            await gameCreated.addGenres(id);
+//             await gameCreated.addGenres(id);
 
-          } catch (err) {
+//           } catch (err) {
 
-            console.log(err);
+//             console.log(err);
             
-          }
+//           }
 
-        })
+//         })
 
-      }
+//       }
 
-      catch (err) {
+//       catch (err) {
 
-        console.log(err);
+//         console.log(err);
 
-      }
+//       }
 
-    });
+//     });
 
-    // await Videogame.bulkCreate(filterApiGames);
+//     // await Videogame.bulkCreate(filterApiGames);
 
-  } catch (err) {
+//   } catch (err) {
 
-    console.log(err);
+//     console.log(err);
 
-  }
-}
+//   }
+// }
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {

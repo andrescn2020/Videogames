@@ -6,8 +6,6 @@ const createVideogame = async (req, res, next) => {
 
     let genresDb = await Genre.findAll();
 
-    console.log(genresDb[0].dataValues.id);
-
     try {
 
         const newGame = await Videogame.create({
@@ -18,7 +16,7 @@ const createVideogame = async (req, res, next) => {
             rating,
             image,
             platforms
-            
+
         });
 
         let data = []
@@ -29,7 +27,7 @@ const createVideogame = async (req, res, next) => {
 
         for (let i = 0; i < genre.length; i++) {
 
-            filterGenre =  genresDb.filter((elem) => elem.dataValues.name === genre[i])
+            filterGenre = genresDb.filter((elem) => elem.dataValues.name === genre[i])
 
             data.push(filterGenre[0]);
 
@@ -38,8 +36,8 @@ const createVideogame = async (req, res, next) => {
         data.map((element) => idGenres.push(element.dataValues.id))
 
         await newGame.addGenre(idGenres);
-        
-        return res.status(201).json(newGame);  
+
+        return res.status(201).json(newGame);
 
     } catch (err) {
 
@@ -58,13 +56,13 @@ const getVideogameById = async (req, res, next) => {
             let videogamesDb = await Videogame.findOne({
 
                 where: {
-    
+
                     id: id
-    
+
                 },
-    
+
                 include: Genre
-    
+
             });
 
             return res.json(videogamesDb);
@@ -78,6 +76,8 @@ const getVideogameById = async (req, res, next) => {
 }
 
 module.exports = {
+
     getVideogameById,
-    createVideogame
+    createVideogame,
+
 }

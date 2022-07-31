@@ -62,6 +62,7 @@ module.exports = (sequelize) => {
     },
     rating: {
       type: DataTypes.FLOAT,
+      defaultValue: 1,
       validate: {
         customValidator(value) {
           if (typeof value !== "number") {

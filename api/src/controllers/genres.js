@@ -6,6 +6,8 @@ const getGenres = async (req, res, next) => {
 
         let genresDb = await Genre.findAll();
 
+        console.log(genresDb);
+
         return res.json(genresDb);
 
     } catch (err) {

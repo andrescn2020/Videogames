@@ -211,9 +211,16 @@ button:active {
 
 }
 
-body {
+.container {
 
     background-image: url("../../assets/gamekbg_generated.jpg");
+    margin: 0;
+
+}
+
+body {
+
+    margin: 0px;
 
 }
 

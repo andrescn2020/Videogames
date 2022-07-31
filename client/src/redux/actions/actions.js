@@ -12,6 +12,7 @@ export const SORT_BY_GENRE = "SORT_BY_GENRE";
 export const RESET_FILTER = 'RESET_FILTER';
 export const SORT_BY_DB_OR_API = "SORT_BY_DB_OR_API";
 export const QUERY_SEARCH = "QUERY_SEARCH";
+export const CLEAR_COMPONENT = "CLEAR_COMPONENT";
  
 export const getAllVideogames = () => {
 
@@ -29,6 +30,18 @@ export const getAllVideogames = () => {
 
         }
     };
+    
+};
+
+export const clearComponent = () => {
+
+    return  {
+
+        type: CLEAR_COMPONENT,
+        payload: {}
+       
+    }
+    
 };
 
 export const getVideogameById = (id) => {

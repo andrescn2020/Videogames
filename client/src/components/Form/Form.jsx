@@ -48,12 +48,6 @@ const Form = () => {
     dispatch(getAllGenres());
     dispatch(getAllVideogames());
 
-    return () => {
-
-      dispatch(getAllVideogames());
-
-    }
-
   }, [dispatch]);
 
 
@@ -451,7 +445,7 @@ const Form = () => {
 
   return (
 
-    <div>
+    <div className='formFirstDiv'>
 
       <div className='formContainer'>
 
@@ -614,7 +608,7 @@ const Form = () => {
 
           <div className='inputSubmit'>
 
-            <input className="createActivity" type="submit" disabled={disabled} value="Create Videogame" />
+            <input className="createGame" type="submit" value="Create Videogame" disabled={disabled} />
 
           </div>
 

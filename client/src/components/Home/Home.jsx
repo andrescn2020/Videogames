@@ -24,10 +24,12 @@ const Home = () => {
 
   useEffect(() => {
 
+     if(videogames.length > 0 || notFound) return 
+
     dispatch(getAllVideogames());
     dispatch(getAllGenres());
 
-  }, [dispatch])
+  }, [dispatch, videogames, notFound])
 
   /////////// VARIABLES ///////////////////////////////////////////
 
@@ -43,29 +45,23 @@ const Home = () => {
 
   /////////// FILTERS //////////////////////////////////////////////
 
-  const handleSortByAsc = (e) => {
-
-    if (e.target.value === "DESC") {
-
-      dispatch(sortByDesc(videogames));
-
-      return videogames;
-
-    } else {
-
-      dispatch(sortByAsc(videogames));
-
-      return videogames;
-
-    }
-
-  }
-
   const handleSortByRat = (e) => {
 
     if (e.target.value === "MORE_RATING") {
 
       dispatch(sortByMoreRating(videogames));
+
+      return videogames;
+
+    } else if (e.target.value === "ASC") {
+
+      dispatch(sortByAsc(videogames));
+
+      return videogames;
+
+    } else if (e.target.value === "DESC") {
+
+      dispatch(sortByDesc(videogames));
 
       return videogames;
 
@@ -105,9 +101,7 @@ const Home = () => {
 
     document.getElementById("genreFilter").value = "Genre";
 
-    document.getElementById("ratingOrder").value = "Rating";
-
-    document.getElementById("alphabeticOrder").value = "Alphabetic";
+    document.getElementById("orders").value = "Orders";
 
     setCurrentPage(1);
 
@@ -209,17 +203,11 @@ const Home = () => {
 
           <div className='filterContainer'>
 
-            <select id='alphabeticOrder' className='selectFilter' name="alphabeticOrder" onChange={handleSortByAsc}>
+            <select id='orders' className='selectFilter' name="orderRating" onChange={handleSortByRat}>
 
-              <option>Alphabetic</option>
+              <option>Orders</option>
               <option value="ASC">A-Z</option>
               <option value="DESC">Z-A</option>
-
-            </select>
-
-            <select id='ratingOrder' className='selectFilter' name="orderRating" onChange={handleSortByRat}>
-
-              <option>Rating</option>
               <option value="MORE_RATING">MAX</option>
               <option value="LESS_RATING">MIN</option>
 
@@ -275,7 +263,7 @@ const Home = () => {
 
       <div className='clearAndCreateContainer'>
 
-        <button onClick={handleFilter}>Clear Filter</button>
+        <button onClick={handleFilter}>Reset</button>
 
         <Link to="/api/videogame/">
 
